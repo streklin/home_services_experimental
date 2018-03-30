@@ -1,0 +1,5 @@
+<launch>
+  <include file="$(find rover_platform)/launch/rover-design.launch" />
+  <include file="$(find rover_platform)/launch/rtabmap.launch" />
+  <include file="$(find rover_platform)/launch/navigation.launch" />
+</launch>

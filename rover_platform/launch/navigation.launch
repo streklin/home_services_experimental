@@ -1,0 +1,27 @@
+<launch>
+
+  <arg name="scan_topic" default="/rover_platform/laser/scan"/>
+  <arg name="map_topic" default="/map"/>
+
+  <!-- ROS navigation stack move_base -->
+  <remap from="scan"             to="$(arg scan_topic)"/>  <!-- see costmap_common_params_2d.yaml -->
+  <remap from="map"              to="$(arg map_topic)"/>   <!-- see global_costmap_params.yaml -->
+    <!-- Move base -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+      <rosparam file="$(find rover_platform)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+      <rosparam file="$(find rover_platform)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+      <rosparam file="$(find rover_platform)/config/local_costmap_params.yaml" command="load" />
+      <rosparam file="$(find rover_platform)/config/global_costmap_params.yaml" command="load" />
+      <rosparam file="$(find rover_platform)/config/base_local_planner_params.yaml" command="load" />
+
+      <remap from="cmd_vel" to="cmd_vel"/>
+      <remap from="odom" to="odom"/>
+      <remap from="scan" to="/rover_platform/laser/scan"/>
+
+      <param name="base_global_planner" type="string" value="navfn/NavfnROS" />
+      <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS"/>
+      <param name="controller_frequency" value="5" />
+    </node>
+
+
+</launch>

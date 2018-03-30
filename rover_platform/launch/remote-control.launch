@@ -1,0 +1,5 @@
+<launch>
+  <include file="$(find rover_platform)/launch/rover-design.launch" />
+  <include file="$(find rover_platform)/launch/mapping.launch" />
+  <include file="$(find rover_platform)/launch/teleop.launch" />
+</launch>
