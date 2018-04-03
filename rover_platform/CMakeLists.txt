@@ -154,6 +154,7 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/rover_platform_node.cpp)
 add_executable(projMapToImage src/projMapToImage.cpp)
 add_executable(findFrontier src/findFrontier.cpp)
+add_executable(exploration src/exploration.cpp)
 
 target_link_libraries(
   projMapToImage
@@ -163,6 +164,12 @@ target_link_libraries(
 
 target_link_libraries(
   findFrontier
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBS}
+)
+
+target_link_libraries(
+  exploration
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
 )

@@ -106,7 +106,6 @@ int main(int argc, char* argv[]) {
         {
             ROS_ERROR("Nope! %s", ex.what());
         }
-  pdist_scale: 3.0
 
     ros::spinOnce();
     rate.sleep();
