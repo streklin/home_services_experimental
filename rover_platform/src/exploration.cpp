@@ -39,6 +39,8 @@ private:
   void travelTo(Vertex* v);
   bool isFrontierPoint(int x, int y, const nav_msgs::OccupancyGrid::ConstPtr& msg);
   void findPath(Vertex* v);
+  vector<Point> getBoundaryPoints(const nav_msgs::OccupancyGrid::ConstPtr& msg);
+  Point chooseClosestBoundaryPoint(vector<Point> boundary);
 
 public:
   Explorer(float epsilon);
@@ -114,16 +116,16 @@ bool Explorer::isFrontierPoint(int x, int y, const nav_msgs::OccupancyGrid::Cons
   int width = msg->info.width;
   int height = msg->info.height;
 
-  int startX = x - 1;
+  int startX = x - 2;
   if (startX < 0) startX = 0;
 
-  int startY = y - 1;
+  int startY = y - 2;
   if (startY < 0) startY = 0;
 
-  int endX = x + 1;
+  int endX = x + 2;
   if (endX > width) endX = width;
 
-  int endY = y + 1;
+  int endY = y + 2;
   if (endY > height) endY = height;
 
   bool hasObstaclePixel = false;
@@ -179,6 +181,27 @@ Mat Explorer::getNhd(Point p, const nav_msgs::OccupancyGrid::ConstPtr& msg) {
   }
 
   return edges;
+}
+
+vector<Point> Explorer::getBoundaryPoints(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
+  vector<Point> boundary;
+
+  // calculate the nhd width with respect to the map
+  int width = msg->info.width;
+  int height = msg->info.height;
+
+  //filter out obstacle pixels
+  for(int x = 0; x < width; x++) {
+    for(int y = 0; y < height; y++) {
+
+      if(this->isFrontierPoint(x,y,msg)) {
+        Point b(x,y);
+        boundary.push_back(b);
+      }
+    }
+  }
+
+  return boundary;
 }
 
 vector<KeyPoint> Explorer::extractFrontierKeyPoints(Mat nhd) {
@@ -241,6 +264,37 @@ Point Explorer::chooseClosestKP(vector<KeyPoint> frontier) {
   }
 
   ROS_INFO("CHOOSEN KEY POINT OF SIZE: %d", size);
+
+  return p;
+}
+
+Point Explorer::chooseClosestBoundaryPoint(vector<Point> boundary) {
+
+  int size = boundary.size();
+  Point p(0,0);
+  float distance = 100000000;
+  float d = 0;
+
+
+  for(int i = 0; i < size; i++) {
+    Point bp = boundary[i];
+
+    // convert back to full frame
+    int kpX = bp.x;
+    int kpY = bp.y;
+
+    d = pow(this->robotMapX - kpX, 2) + pow(this->robotMapY - kpY, 2);
+
+    //ROS_INFO("Distance: %f", d);
+
+    if (d < distance && d > 400.0) {
+      distance = d;
+      Point n(kpX, kpY);
+      p = n;
+    }
+  }
+
+  ROS_INFO("Distance: %f", distance);
 
   return p;
 }
@@ -386,10 +440,11 @@ void Explorer::nextStep(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
 
   ROS_INFO("get the nhd of the robots current position from the occupancy OccupancyGrid");
   Point robotOcc = this->getRobotOccMapPosition(msg);
-  Mat nhd = this->getNhd(robotOcc, msg);
+  //Mat nhd = this->getNhd(robotOcc, msg);
+  //vector<KeyPoint> frontier = extractFrontierKeyPoints(nhd);
 
-  ROS_INFO("get the keypoints from the frontier");
-  vector<KeyPoint> frontier = extractFrontierKeyPoints(nhd);
+  ROS_INFO("Get the Boundary");
+  vector<Point> frontier = this->getBoundaryPoints(msg);
 
   if (frontier.size() == 0) {
     ROS_INFO("Nothing to explore.");
@@ -397,7 +452,7 @@ void Explorer::nextStep(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
   }
 
   ROS_INFO("Choose KeyPoint");
-  Point closestKp = this->chooseClosestKP(frontier);
+  Point closestKp = this->chooseClosestBoundaryPoint(frontier);
 
   ROS_INFO("Convert Key Point to map frame.");
   Vertex* mapVertex = this->convertToMapFrame(closestKp, msg);
