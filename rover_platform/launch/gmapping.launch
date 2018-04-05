@@ -1,8 +1,0 @@
-<launch>
-  <node pkg="gmapping" type="slam_gmapping" name="gmapping_thing" output="screen" >
-    <remap from="scan" to="rover_platform/laser/scan" />
-    <param name="odom_frame" value="odom" />
-    <param name="base_frame" value="robot_footprint" />
-    <param name="map_update_interval" value="1.0" />
-  </node>
-</launch>

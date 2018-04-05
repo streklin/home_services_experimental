@@ -1,7 +1,0 @@
-<launch>
-  <node pkg="rover_platform" name="projMapToImage" type="projMapToImage" output="screen">
-  </node>
-
-  <node pkg="rover_platform" name="exploration" type="exploration" output="screen">
-  </node>
-</launch>

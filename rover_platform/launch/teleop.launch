@@ -1,5 +1,0 @@
-<launch>
-	<node name="teleop" type="teleop" pkg="rover_platform">
-		<remap from="/teleop/cmd_vel" to="/cmd_vel"></remap>
-  </node>
-</launch>
