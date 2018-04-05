@@ -1,0 +1,5 @@
+<launch>
+  <include file="$(find rover_platform)/launch/start_turtlebot.launch" />
+  <include file="$(find rover_platform)/launch/gmapping.launch" />
+  <include file="$(find rover_platform)/launch/navigation.launch" />
+</launch>
