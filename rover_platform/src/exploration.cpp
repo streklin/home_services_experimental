@@ -64,6 +64,9 @@ void Explorer::updateGraph(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
   ROS_INFO("IS IT NULL?");
 
   if (v != NULL) {
+    ROS_INFO("SET CURRENT VERTEX");
+    ROS_INFO("Robot At: x: %f y:%f", this->robotX, this->robotY);
+    ROS_INFO("Current Vertex: x: %f y:%f id: %d", v->getX(), v->getY(), v->getIndex());
     this->current = v;
     return;
   }
@@ -353,7 +356,7 @@ void Explorer::travelTo(Vertex* v) {
   ROS_INFO("Sending goal");
   ac.cancelAllGoals();
   ac.sendGoal(goal);
-  ac.waitForResult(ros::Duration(30.0));
+  ac.waitForResult(ros::Duration(60.0));
 
   actionlib::SimpleClientGoalState state = ac.getState();
 
@@ -420,7 +423,7 @@ void Explorer::findPath(Vertex* v) {
     dest = this->g.getVertexByIndex(dest->getParent());
   }
 
-  reverse(path.begin(), path.end());
+  //reverse(path.begin(), path.end());
   this->path = path;
 }
 
@@ -477,7 +480,7 @@ void Explorer::setRobotPosition(float x, float y) {
   this->robotY = y;
 }
 
-Explorer explorer(30.0);
+Explorer explorer(1.0);
 
 void listener(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
   explorer.nextStep(msg);
