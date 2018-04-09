@@ -1,0 +1,14 @@
+.RemoteCamera {
+    background-color: white;
+    width: 80%;
+    height: 300px;
+    border: 4px solid orange;
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.RemoteCamera img {
+    height: 300px;
+    width: 100%;
+}

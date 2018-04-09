@@ -1,0 +1,10 @@
+<launch>
+  <param name="lastImageLoc" value="/home/gene/catkin_ws/src/rover_platform/mapImage.png" />
+  <param name="lastCamImageLoc" value="/home/gene/catkin_ws/src/rover_platform/camImage.png" />
+
+  <node pkg="rover_platform" name="projMapToImage" type="projMapToImage" output="screen">
+  </node>
+  <node pkg="rover_platform" name="exploration" type="exploration" output="screen">
+  </node>
+  <node pkg="rover_platform" name="cameraCapture" type="cameraCapture" output="screen"></node>
+</launch>

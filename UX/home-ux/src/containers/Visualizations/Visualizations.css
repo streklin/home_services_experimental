@@ -1,0 +1,99 @@
+.Visualizations {
+    width: 80%;
+    margin: 0 auto;
+    height: 220px;
+    margin-top: 10px;
+    border: 4px solid orange;
+    background: white;
+    margin-bottom: 15px;
+}
+
+.Visualizations .remote-controls {
+    width: 220px;
+    height: 220px;
+    border-right: 1px solid black;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 80px;
+}
+
+.Visualizations .mapOut {
+    display: inline-block;
+}
+
+.Visualizations .autoDrive {
+    vertical-align: top;
+    height: 65px;
+    width: 65px;
+    border-radius: 100%;
+    margin-left: 7px;
+    color: black;
+    text-align: center;
+    cursor: pointer;
+}
+
+.Visualizations .autoDrive.green {
+    background-color: lawngreen;
+}
+
+.Visualizations .autoDrive.red {
+    background-color: red;
+}
+
+.Visualizations .autoDrive span {
+    position: relative;
+    top: 14px;
+}
+
+.Visualizations .takePicture {
+    height: 65px;
+    width: 65px;
+    background-color: orange;
+    margin-left: 7px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.Visualizations .mapOut img {
+    height: 78px;
+}
+
+.Visualizations .remote-controls .controls-container {
+    position: relative;
+    width: 150px;
+    display: inline-block;
+    left: 36px;
+    height: 220px;
+}
+
+.Visualizations .remote-controls .remote-button {
+    position: relative;
+    display: inline-block;
+}
+
+.Visualizations .remote-controls .remote-middle {
+   width: 100%;
+    top: -30px;
+}
+
+.Visualizations .remote-controls .remote-up {
+    left: 46px;
+    top: 6px;
+}
+
+.Visualizations .remote-controls .remote-left {
+
+}
+
+.Visualizations .remote-controls .remote-stop {
+
+}
+
+.Visualizations .remote-controls .remote-right {
+}
+
+.Visualizations .remote-controls .remote-down {
+    top: -71px;
+    left: 43px;
+}

@@ -1,9 +1,10 @@
-#include<opencv2/opencv.hpp>
-#include<cv_bridge/cv_bridge.h>
-#include<ros/ros.h>
-#include<image_transport/image_transport.h>
-#include<sensor_msgs/image_encodings.h>
-#include<iostream>
+#include <opencv2/opencv.hpp>
+#include <cv_bridge/cv_bridge.h>
+#include <ros/ros.h>
+#include <image_transport/image_transport.h>
+#include <sensor_msgs/image_encodings.h>
+#include <iostream>
+#include <string>
 #include <tf/transform_listener.h>
 #include "nav_msgs/OccupancyGrid.h"
 
@@ -12,6 +13,8 @@ using namespace cv;
 
 float g_robotX = 0.0f;
 float g_robotY = 0.0f;
+
+string g_imageFile = "";
 
 Point getRobotOccMapCell(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
   float resolution = msg->info.resolution;
@@ -54,9 +57,9 @@ void convertMapToImage(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
 
       } else if (occupancyProb < 0) {
 
-          color[0] = 255;
-          color[1] = 0;
-          color[2] = 0;
+          color[0] = 0;
+          color[1] = 165;
+          color[2] = 255;
 
       } else {
 
@@ -77,9 +80,8 @@ void convertMapToImage(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
 
   namedWindow("OccupancyGrid", CV_WINDOW_NORMAL);
   imshow("OccupancyGrid", flippedImg);
-
+  imwrite(g_imageFile, flippedImg);
   waitKey(1);
-
 }
 
 int main(int argc, char* argv[]) {
@@ -89,6 +91,12 @@ int main(int argc, char* argv[]) {
   ros::Subscriber sub = nh.subscribe("/map", 1, convertMapToImage);
   tf::TransformListener listener;
   ros::Rate rate(10);
+
+  if (nh.getParam("lastImageLoc", g_imageFile)) {
+    ROS_INFO("Last Image Location: %s", g_imageFile.c_str());
+  } else {
+    ROS_ERROR("Last Image Location not set");
+  }
 
   ROS_INFO("projMapToImage Started!");
 
@@ -112,7 +120,6 @@ int main(int argc, char* argv[]) {
   }
 
   destroyWindow("OccupancyGrid");
-  destroyWindow("edges");
 
   return 0;
 }

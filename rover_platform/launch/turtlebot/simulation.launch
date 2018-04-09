@@ -1,0 +1,7 @@
+<launch>
+  <include file="$(find rover_platform)/launch/turtlebot/turtlebot_house.launch" />
+  <include file="$(find rover_platform)/launch/slam/gmapping.launch" />
+  <include file="$(find rover_platform)/launch/slam/navigation.launch" />
+  <node pkg="rover_platform" name="remoteControl" type="remoteControl">
+  </node>
+</launch>
