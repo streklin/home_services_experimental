@@ -32,6 +32,8 @@ app.use(function (req, res, next) {
 
 let remoteControlPublisher = null;
 let autoMapStatePublisher = null;
+let activateBehaviorPublisher = null;
+let deActivateBehaviorPublisher = null;
 
 const createDriveCmd = (cmd) => {
     const msg = new std_msgs.String();
@@ -77,11 +79,43 @@ app.get('/robot/images/camera', (req, res) => {
     res.sendFile('/home/gene/catkin_ws/src/rover_platform/camImage.png');
 });
 
+function activateAutoMapBehavior() {
+    const msg = new std_msgs.String();
+    msg.data = 'remote_control_behavior/automap_behavior';
+    activateBehaviorPublisher.publish(msg);
+}
+
+function disableAutoMapBehavior() {
+    const msg = new std_msgs.String();
+    msg.data = 'remote_control_behavior/automap_behavior';
+    deActivateBehaviorPublisher.publish(msg);
+}
+
+function enableRemoteControl() {
+    const msg = new std_msgs.String();
+    msg.data = 'remote_control_behavior';
+    activateBehaviorPublisher.publish(msg);
+}
+
+function disableRemoteControl() {
+    const msg = new std_msgs.String();
+    msg.data = 'remote_control_behavior';
+    deActivateBehaviorPublisher.publish(msg);
+}
+
 app.get('/robot/state/toggleAutoMap', (req, res) => {
     robotState.isAutoMapActive = !robotState.isAutoMapActive;
-    const msg = new std_msgs.Bool();
-    msg.data = robotState.isAutoMapActive;
-    autoMapStatePublisher.publish(msg);
+
+    if (robotState.isAutoMapActive) {
+        activateAutoMapBehavior();
+        disableRemoteControl();
+    } else {
+        disableAutoMapBehavior();
+        enableRemoteControl();
+    }
+
+    res.send("OK");
+
 });
 
 app.get('/robot/state/getState', (req, res) => {
@@ -93,6 +127,8 @@ rosnodejs.initNode('/middleware', { onTheFly: true})
         // register publishers
         remoteControlPublisher = rosNode.advertise('/remoteControl', std_msgs.String);
         autoMapStatePublisher = rosNode.advertise('/setExploreState', std_msgs.Bool);
+        activateBehaviorPublisher = rosNode.advertise('activateBehavior', std_msgs.String);
+        deActivateBehaviorPublisher = rosNode.advertise('deActivateBehavior', std_msgs.String);
 
         rosNode.subscribe("battery/charge_ratio", std_msgs.Float32, (msg) => {
             robotState.batteryPower = msg.data * 100;
