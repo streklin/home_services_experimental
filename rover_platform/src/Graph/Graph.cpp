@@ -2,6 +2,7 @@
 #define _INCL_GRAPH
 
 #include <vector>
+#include <string>
 #include "Vertex.cpp"
 
 using namespace std;
@@ -20,6 +21,7 @@ public:
   Vertex* getClosestVertexInBall(float x, float y, float epsilon);
   vector<Vertex*> getConnectedVertices(int v1);
   Vertex* getVertexByIndex(int index);
+  Vertex* getVertexByLabel(string label);
   int getSize();
 };
 
@@ -106,6 +108,16 @@ Vertex* Graph::getVertexByIndex(int index) {
 
   for(int i = 0; i < this->vertexList.size(); i++) {
     if (this->vertexList[i]->getIndex() == index) {
+      return this->vertexList[i];
+    }
+  }
+
+  return NULL;
+}
+
+Vertex* Graph::getVertexByLabel(string label) {
+  for(int i = 0; i < this->vertexList.size(); i++) {
+    if (this->vertexList[i]->getLabel() == label) {
       return this->vertexList[i];
     }
   }

@@ -1,6 +1,10 @@
 #ifndef _INCL_VERTEX
 #define _INCL_VERTEX
 
+#include <string>
+
+using namespace std;
+
 class Vertex {
 private:
   float x;
@@ -8,6 +12,7 @@ private:
   int index;
   int parent; // used for book keeping during search
   bool explored;
+  string label;
 public:
   Vertex();
   Vertex(float x, float y, int index);
@@ -19,6 +24,8 @@ public:
   void markExplored();
   void setParent(int parent);
   int getParent();
+  void setLabel(string label);
+  string getLabel();
 };
 
 Vertex::Vertex() {
@@ -66,6 +73,14 @@ void Vertex::setParent(int parent) {
 
 int Vertex::getParent() {
   return this->parent;
+}
+
+void Vertex::setLabel(string label) {
+  this->label = label;
+}
+
+string Vertex::getLabel() {
+  return this->label;
 }
 
 #endif

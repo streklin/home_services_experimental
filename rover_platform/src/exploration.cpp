@@ -12,6 +12,8 @@
 #include "nav_msgs/OccupancyGrid.h"
 #include "std_msgs/Bool.h"
 #include "Graph/Explorer.cpp"
+#include "std_msgs/String.h"
+
 
 Explorer explorer(0.5);
 
@@ -24,7 +26,18 @@ void toggleListener(const std_msgs::Bool::ConstPtr& exploreActive) {
     explorer.activate();
   } else {
     explorer.deactivate();
+    explorer.clearCurrentPath();
   }
+}
+
+void vertexLabelListener(const std_msgs::String::ConstPtr& msg) {
+  ROS_INFO("Received MSG: %s", msg->data.c_str());
+  explorer.setCurrentLabel(msg->data);
+}
+
+void gotoVertexListener(const std_msgs::String::ConstPtr& msg) {
+  ROS_INFO("Received MSG: %s", msg->data.c_str());
+  explorer.gotoPlace(msg->data);
 }
 
 int main(int argc, char* argv[]) {
@@ -32,6 +45,8 @@ int main(int argc, char* argv[]) {
   ros::NodeHandle nh;
   ros::Subscriber sub = nh.subscribe("/map", 1, exploreListener);
   ros::Subscriber stateSub = nh.subscribe("/setExploreState", 1, toggleListener);
+  ros::Subscriber labelSub = nh.subscribe("/setVertexLabel", 1, vertexLabelListener);
+  ros::Subscriber gotoSub = nh.subscribe("/gotoVertex", 1, gotoVertexListener);
   tf::TransformListener listener;
   ros::Rate rate(10);
 

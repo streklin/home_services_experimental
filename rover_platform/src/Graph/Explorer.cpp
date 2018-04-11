@@ -12,6 +12,7 @@
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
 #include <algorithm>
+#include <string>
 #include "nav_msgs/OccupancyGrid.h"
 #include "Vertex.cpp"
 #include "Graph.cpp"
@@ -52,6 +53,10 @@ public:
   void setRobotPosition(float x, float y);
   void activate();
   void deactivate();
+  void setCurrentLabel(string label);
+  string getCurrentLabel();
+  void gotoPlace(string label);
+  void clearCurrentPath();
 };
 
 Explorer::Explorer(float epsilon) {
@@ -438,19 +443,21 @@ void Explorer::nextStep(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
 
   ROS_INFO("Next Step");
 
-  if (!this->isActive) {
-    ROS_INFO("Automated exploration disabled");
-    return;
-  }
-
   ROS_INFO("Update Graph");
   this->updateGraph(msg);
+
+  ROS_INFO("I am in: %s", this->current->getLabel().c_str());
 
   if (this->path.size() > 0) {
     ROS_INFO("Follow the path.");
     Vertex* last = this->path.back();
     this->path.pop_back();
     this->travelTo(last);
+    return;
+  }
+
+  if (!this->isActive) {
+    ROS_INFO("Automated exploration disabled");
     return;
   }
 
@@ -500,6 +507,26 @@ void Explorer::activate() {
 
 void Explorer::deactivate() {
   this->isActive = false;
+}
+
+void Explorer::setCurrentLabel(string label) {
+  if (this->current == NULL) return;
+  this->current->setLabel(label);
+}
+
+string Explorer::getCurrentLabel() {
+  if (this->current == NULL) return "No Label";
+  return this->current->getLabel();
+}
+
+void Explorer::gotoPlace(string label) {
+  Vertex* target = this->g.getVertexByLabel(label);
+  if (target == NULL) return;
+  findPath(target);
+}
+
+void Explorer::clearCurrentPath() {
+  this->path.clear();
 }
 
 #endif

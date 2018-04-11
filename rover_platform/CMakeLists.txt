@@ -17,6 +17,9 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   sensor_msgs
   move_base_msgs
+  cv_bridge
+  std_msgs
+  image_transport
   OpenCV)
 
 ## System dependencies are found with CMake's conventions
@@ -154,6 +157,9 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/rover_platform_node.cpp)
 add_executable(projMapToImage src/projMapToImage.cpp)
 add_executable(exploration src/exploration.cpp)
+add_executable(remoteControl src/remoteControl.cpp)
+add_executable(cameraCapture src/cameraCapture.cpp)
+add_executable(subsumptionCtrl src/subsumptionCtrl.cpp)
 
 target_link_libraries(
   projMapToImage
@@ -165,6 +171,22 @@ target_link_libraries(
   exploration
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
+)
+
+target_link_libraries(
+  remoteControl
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(
+  cameraCapture
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBS}
+)
+
+target_link_libraries(
+  subsumptionCtrl
+  ${catkin_LIBRARIES}
 )
 
 ## Rename C++ executable without prefix

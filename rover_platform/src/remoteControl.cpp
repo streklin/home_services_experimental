@@ -34,8 +34,6 @@ void stop() {
 }
 
 void readCommand(const std_msgs::String::ConstPtr& msg) {
-  geometry_msgs::Twist t;
-
   if (msg->data == "F") {
     forwardTwist();
   }
@@ -67,7 +65,7 @@ int main(int argc, char* argv[]) {
   ros::init(argc, argv, "remoteControl");
   ros::NodeHandle nh;
   ros::Subscriber sub = nh.subscribe("/remoteControl", 1, readCommand);
-  ros::Subscriber stateSub = nh.subscribe("/setExploreState", 1, toggleListener);
+  ros::Subscriber stateSub = nh.subscribe("/setRemoteControlState", 1, toggleListener);
   ros::Publisher pub = nh.advertise<geometry_msgs::Twist>("cmd_vel", 1000);
   ros::Rate rate(10);
 
