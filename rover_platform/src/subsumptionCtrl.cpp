@@ -3,6 +3,7 @@
 #include "SubsumptionManager/Behaviors/Behaviour.cpp"
 #include "SubsumptionManager/Behaviors/RemoteControlBehavior.cpp"
 #include "SubsumptionManager/Behaviors/AutoMapBehavior.cpp"
+#include "SubsumptionManager/Behaviors/GoToVertexBehavior.cpp"
 #include "SubsumptionManager/SubsumptionManager.cpp"
 
 SubsumptionManager* g_subsumptionManager = NULL;
@@ -11,11 +12,13 @@ SubsumptionManager* setupSubsumptionManager(ros::NodeHandle nh) {
   SubsumptionManager* subsumption = new SubsumptionManager();
 
   RemoteControlBehavior* remoteControlBehavior = new RemoteControlBehavior(nh, "remote_control_behavior", 0);
-  AutoMapBehavior* autoMapBehavior = new AutoMapBehavior(nh, "automap_behavior", 0);
+  AutoMapBehavior* autoMapBehavior = new AutoMapBehavior(nh, "automap_behavior", 1);
+  GoToVertexBehavior* goToVertexBehavior = new GoToVertexBehavior(nh, "gotovertex_behavior", 2);
 
   subsumption->registerBehavior("", remoteControlBehavior);
   subsumption->registerBehavior("remote_control_behavior", autoMapBehavior);
-  
+  subsumption->registerBehavior("remote_control_behavior", goToVertexBehavior);
+
   return subsumption;
 }
 

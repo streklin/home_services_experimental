@@ -33,6 +33,7 @@ private:
   int robotMapX;
   int robotMapY;
   bool isActive;
+  bool isGotoActive;
 
   void updateGraph(const nav_msgs::OccupancyGrid::ConstPtr& msg);
   Point getRobotOccMapPosition(const nav_msgs::OccupancyGrid::ConstPtr& msg);
@@ -53,6 +54,7 @@ public:
   void setRobotPosition(float x, float y);
   void activate();
   void deactivate();
+  void setGotoState(bool newState);
   void setCurrentLabel(string label);
   string getCurrentLabel();
   void gotoPlace(string label);
@@ -448,6 +450,10 @@ void Explorer::nextStep(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
 
   ROS_INFO("I am in: %s", this->current->getLabel().c_str());
 
+  if (!this->isActive && !this->isGotoActive) {
+    return;
+  }
+
   if (this->path.size() > 0) {
     ROS_INFO("Follow the path.");
     Vertex* last = this->path.back();
@@ -527,6 +533,12 @@ void Explorer::gotoPlace(string label) {
 
 void Explorer::clearCurrentPath() {
   this->path.clear();
+}
+
+void Explorer::setGotoState(bool newState) {
+  this->isGotoActive = newState;
+
+  if (!newState) this->clearCurrentPath();
 }
 
 #endif

@@ -40,11 +40,17 @@ void gotoVertexListener(const std_msgs::String::ConstPtr& msg) {
   explorer.gotoPlace(msg->data);
 }
 
+void toggleGotoListener(const std_msgs::Bool::ConstPtr& msg) {
+   ROS_INFO("Updating GOTO Vertex state");
+   explorer.setGotoState(msg->data);
+}
+
 int main(int argc, char* argv[]) {
   ros::init(argc, argv, "exploration");
   ros::NodeHandle nh;
   ros::Subscriber sub = nh.subscribe("/map", 1, exploreListener);
   ros::Subscriber stateSub = nh.subscribe("/setExploreState", 1, toggleListener);
+  ros::Subscriber toggleGoto = nh.subscribe("/toggleGoto", 1, toggleGotoListener);
   ros::Subscriber labelSub = nh.subscribe("/setVertexLabel", 1, vertexLabelListener);
   ros::Subscriber gotoSub = nh.subscribe("/gotoVertex", 1, gotoVertexListener);
   tf::TransformListener listener;
