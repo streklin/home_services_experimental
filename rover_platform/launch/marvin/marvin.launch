@@ -1,0 +1,6 @@
+<launch>
+  <include file="$(find ca_driver)/launch/create_2.launch" />
+  <node pkg="rover_platform" name="remoteControl" type="remoteControl">
+  </node>
+  <node pkg="rover_platform_middleware" name="middleware.js" type="middleware.js"></node>
+</launch>

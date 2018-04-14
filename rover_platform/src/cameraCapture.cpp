@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     namedWindow(OPENCV_WINDOW);
 
     image_transport::ImageTransport it(nh);
-    image_transport::Subscriber sub = it.subscribe("/camera/rgb/image_raw", 1, imageProcessingPipeline);
+    image_transport::Subscriber sub = it.subscribe("/camera/image_raw", 1, imageProcessingPipeline);
 
     ros::Rate rate(5);
     while(ros::ok()) {
