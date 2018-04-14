@@ -70,7 +70,6 @@ int main(int argc, char* argv[]) {
     tf::StampedTransform transform;
         try
         {
-            //ROS_INFO("Attempting to read pose...");
             listener.waitForTransform("/map","/base_footprint",ros::Time(0), ros::Duration(5.0) );
             listener.lookupTransform("/map","/base_footprint",ros::Time(0), transform);
             float x = transform.getOrigin().x();

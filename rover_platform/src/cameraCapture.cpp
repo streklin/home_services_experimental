@@ -19,7 +19,10 @@ void imageProcessingPipeline(const sensor_msgs::ImageConstPtr& msg) {
    resize(image, outImage, Size(), 0.20, 0.20);
 
    imshow(OPENCV_WINDOW, outImage);
-   imwrite(g_imageFile, outImage);
+
+   if (g_imageFile != "")
+    imwrite(g_imageFile, outImage);
+
    waitKey(1);
 }
 
