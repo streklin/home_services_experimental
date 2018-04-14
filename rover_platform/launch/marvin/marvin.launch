@@ -1,6 +1,14 @@
 <launch>
+
+  <!-- Launch the iRobot Create Driver -->
   <include file="$(find ca_driver)/launch/create_2.launch" />
-  <node pkg="rover_platform" name="remoteControl" type="remoteControl">
-  </node>
+
+  <!-- Launch the support nodes -->
+  <node pkg="rover_platform" name="remoteControl" type="remoteControl"></node>
+  <node pkg="rover_platform" name="webcamCapture" type="webcamCapture"></node>
+  <node pkg="rover_platform" name="cameraCapture" type="cameraCapture"></node>
+
+  <node pkg="rover_platform" name="subsumptionCtrl" type="subsumptionCtrl" output="screen"></node>
+
   <node pkg="rover_platform_middleware" name="middleware.js" type="middleware.js"></node>
 </launch>
