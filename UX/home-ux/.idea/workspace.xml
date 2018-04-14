@@ -10,58 +10,62 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="CreateSensors.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/CreateSensors/CreateSensors.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="424">
-                  <caret line="47" column="51" selection-start-line="47" selection-start-column="51" selection-end-line="47" selection-end-column="51" />
-                  <folding>
-                    <element signature="e#0#26#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Visualizations.css" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/containers/Visualizations/Visualizations.css">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="510">
-                  <caret line="64" column="17" lean-forward="true" selection-start-line="46" selection-end-line="64" selection-end-column="17" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="CreateSensors.css" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/CreateSensors/CreateSensors.css">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="855">
-                  <caret line="57" column="40" selection-start-line="57" selection-start-column="40" selection-end-line="57" selection-end-column="40" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="RobotSensors.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/containers/RobotSensors/RobotSensors.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="94">
-                  <caret line="24" column="25" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
-                  <folding>
-                    <element signature="e#0#41#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="settings.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/settings.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RobotSensors.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/containers/RobotSensors/RobotSensors.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RobotControls.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/containers/RobotControls/RobotControls.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RemoteCamera.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/containers/RemoteCamera/RemoteCamera.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Visualizations.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/containers/Visualizations/Visualizations.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -74,18 +78,19 @@
         <option value="$PROJECT_DIR$/src/containers/Footer/Footer.js" />
         <option value="$PROJECT_DIR$/src/containers/Footer/Footer.css" />
         <option value="$PROJECT_DIR$/public/index.html" />
-        <option value="$PROJECT_DIR$/src/containers/Visualizations/Visualizations.js" />
-        <option value="$PROJECT_DIR$/src/containers/RemoteCamera/RemoteCamera.js" />
         <option value="$PROJECT_DIR$/src/containers/RobotControls/RobotControls.js" />
         <option value="$PROJECT_DIR$/src/containers/App/App.js" />
         <option value="$PROJECT_DIR$/src/containers/RobotSensors/RobotSensors.css" />
         <option value="$PROJECT_DIR$/src/components/BatteryBar/BatteryBar.js" />
         <option value="$PROJECT_DIR$/src/components/BatteryBar/BatteryBar.css" />
         <option value="$PROJECT_DIR$/src/containers/App/App.css" />
-        <option value="$PROJECT_DIR$/src/containers/RobotSensors/RobotSensors.js" />
         <option value="$PROJECT_DIR$/src/components/CreateSensors/CreateSensors.css" />
         <option value="$PROJECT_DIR$/src/components/CreateSensors/CreateSensors.js" />
         <option value="$PROJECT_DIR$/src/containers/Visualizations/Visualizations.css" />
+        <option value="$PROJECT_DIR$/src/settings.js" />
+        <option value="$PROJECT_DIR$/src/containers/Visualizations/Visualizations.js" />
+        <option value="$PROJECT_DIR$/src/containers/RobotSensors/RobotSensors.js" />
+        <option value="$PROJECT_DIR$/src/containers/RemoteCamera/RemoteCamera.js" />
       </list>
     </option>
   </component>
@@ -109,13 +114,17 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="home-ux" type="b2602c69:ProjectViewProjectNode" />
               <item name="home-ux" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="home-ux" type="b2602c69:ProjectViewProjectNode" />
+              <item name="home-ux" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="home-ux" type="b2602c69:ProjectViewProjectNode" />
@@ -128,12 +137,41 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="containers" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="home-ux" type="b2602c69:ProjectViewProjectNode" />
+              <item name="home-ux" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="containers" type="462c0819:PsiDirectoryNode" />
+              <item name="RemoteCamera" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="home-ux" type="b2602c69:ProjectViewProjectNode" />
+              <item name="home-ux" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="containers" type="462c0819:PsiDirectoryNode" />
+              <item name="RobotControls" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="home-ux" type="b2602c69:ProjectViewProjectNode" />
+              <item name="home-ux" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="containers" type="462c0819:PsiDirectoryNode" />
+              <item name="RobotSensors" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="home-ux" type="b2602c69:ProjectViewProjectNode" />
+              <item name="home-ux" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="containers" type="462c0819:PsiDirectoryNode" />
+              <item name="Visualizations" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="AndroidView" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -219,14 +257,16 @@
       <workItem from="1523274392531" duration="1873000" />
       <workItem from="1523480250729" duration="8000" />
       <workItem from="1523708335960" duration="3295000" />
+      <workItem from="1523732680070" duration="437000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31142000" />
+    <option name="totallyTimeSpent" value="31579000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1600" height="864" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -241,7 +281,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.4993565" visible="true" weight="0.126703" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15379666" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15572716" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -264,6 +304,40 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/components/CreateSensors/CreateSensors.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="705">
+          <caret line="47" column="51" selection-start-line="47" selection-start-column="51" selection-end-line="47" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/Visualizations/Visualizations.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="960">
+          <caret line="64" column="17" lean-forward="true" selection-start-line="46" selection-end-line="64" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/CreateSensors/CreateSensors.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="57" column="40" selection-start-line="57" selection-start-column="40" selection-end-line="57" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/RobotSensors/RobotSensors.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="25" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/CreateSensors/CreateSensors.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -516,20 +590,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/Visualizations/Visualizations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="93" column="24" selection-start-line="93" selection-start-column="24" selection-end-line="93" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/RobotControls/RobotControls.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/BatteryBar/BatteryBar.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -544,13 +604,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/RemoteCamera/RemoteCamera.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="17" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/App/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -558,26 +611,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/CreateSensors/CreateSensors.css">
+    <entry file="file://$PROJECT_DIR$/src/containers/Visualizations/Visualizations.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="57" column="40" selection-start-line="57" selection-start-column="40" selection-end-line="57" selection-end-column="40" />
+        <state relative-caret-position="15">
+          <caret line="64" column="17" selection-start-line="46" selection-end-line="64" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/RobotSensors/RobotSensors.js">
+    <entry file="file://$PROJECT_DIR$/src/components/CreateSensors/CreateSensors.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="24" column="25" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="15">
+          <caret line="57" column="40" selection-start-line="57" selection-start-column="40" selection-end-line="57" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/CreateSensors/CreateSensors.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="424">
+        <state relative-caret-position="379">
           <caret line="47" column="51" selection-start-line="47" selection-start-column="51" selection-end-line="47" selection-end-column="51" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
@@ -585,10 +635,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/Visualizations/Visualizations.css">
+    <entry file="file://$PROJECT_DIR$/src/settings.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="64" column="17" lean-forward="true" selection-start-line="46" selection-end-line="64" selection-end-column="17" />
+        <state relative-caret-position="15">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/RobotSensors/RobotSensors.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/RobotControls/RobotControls.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/Visualizations/Visualizations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/RemoteCamera/RemoteCamera.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

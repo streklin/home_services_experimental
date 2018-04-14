@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './RemoteCamera.css';
+import SERVER_URL from '../../settings';
 
-const baseUrl = "http://192.168.0.13:8080/";
+const baseUrl = SERVER_URL;
 
 class RemoteCamera extends Component {
 
