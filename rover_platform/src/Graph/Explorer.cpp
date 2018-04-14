@@ -59,6 +59,7 @@ public:
   string getCurrentLabel();
   void gotoPlace(string label);
   void clearCurrentPath();
+  void setEpsilon(float epsilon);
 };
 
 Explorer::Explorer(float epsilon) {
@@ -539,6 +540,10 @@ void Explorer::setGotoState(bool newState) {
   this->isGotoActive = newState;
 
   if (!newState) this->clearCurrentPath();
+}
+
+void Explorer::setEpsilon(float epsilon) {
+  this->epsilon = epsilon;
 }
 
 #endif

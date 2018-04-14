@@ -6,7 +6,7 @@
 float forwardVelocity = 0.0;
 float angularVelocity = 0.0;
 
-bool g_isAutoMapActive = false;
+bool g_remoteControlOn = true;
 
 void forwardTwist() {
   forwardVelocity += 0.2;
@@ -58,7 +58,7 @@ void readCommand(const std_msgs::String::ConstPtr& msg) {
 }
 
 void toggleListener(const std_msgs::Bool::ConstPtr& exploreActive) {
-  g_isAutoMapActive = exploreActive->data;
+  g_remoteControlOn = exploreActive->data;
 }
 
 int main(int argc, char* argv[]) {
@@ -74,7 +74,7 @@ int main(int argc, char* argv[]) {
     // only respond to remote control when auto map is disabled, otherwise
     // the two cmd_vels will intefere with each other causing problems for the
     // movebase functionality.
-    if (!g_isAutoMapActive) {
+    if (g_remoteControlOn) {
       geometry_msgs::Twist msg;
       msg.linear.x = forwardVelocity;
       msg.angular.z = angularVelocity;

@@ -1,11 +1,5 @@
 <launch>
 
-  <!--<include file="$(find ca_description)/launch/create_2.launch" />
-  <include file="$(find rover_slam)/launch/world-kitchen.launch" /> -->
-  <param name="lastImageLoc" value="/home/gene/catkin_ws/src/rover_platform/mapImage.png" />
-  <param name="lastCamImageLoc" value="/home/gene/catkin_ws/src/rover_platform/camImage.png" />
-
-
     <param name="robot_description" command="$(find xacro)/xacro.py '$(find rover_platform)/urdf/create_2.urdf.xacro'" />
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
 
@@ -17,7 +11,7 @@
     <arg name="debug" default="false"/>
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-      <arg name="world_name" value="$(find rover_platform)/worlds/empty.world"/>
+      <arg name="world_name" value="$(find rover_platform)/worlds/test_world.world"/>
       <arg name="paused" value="$(arg paused)"/>
       <arg name="use_sim_time" value="$(arg use_sim_time)"/>
       <arg name="gui" value="$(arg gui)"/>
@@ -30,15 +24,17 @@
     <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false"
       output="screen" args="-urdf -param robot_description -model ca_description"/>
 
-  <node pkg="rover_platform" name="remoteControl" type="remoteControl"></node>
-  <node pkg="rover_platform" name="cameraCapture" type="cameraCapture"></node>
-  <node pkg="rover_platform_middleware" name="middleware.js" type="middleware.js"></node>
   <node name="depthimage_to_laserscan" pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" >
      <remap from="image" to="camera/depth/image_raw"/>
      <param name="output_frame_id" value="depth_camera"/>
      <param name="range_max" value="40.0" />
   </node>
 
-  <include file="$(find rover_platform)/launch/slam/gmapping.launch" />
+  <include file="$(find rover_platform)/launch/slam/rtabmap.launch" />
   <include file="$(find rover_platform)/launch/slam/navigation.launch" />
+  <!--<include file="$(find rover_platform)/launch/ai/ai.launch" />-->
+
+  <node name="remoteControl" pkg="rover_platform" type="remoteControl"></node>
+
+  <node pkg="rover_platform_middleware" name="middleware.js" type="middleware.js"></node>
 </launch>

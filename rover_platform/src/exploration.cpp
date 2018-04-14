@@ -15,7 +15,7 @@
 #include "std_msgs/String.h"
 
 
-Explorer explorer(0.5);
+Explorer explorer(0.0);
 
 void exploreListener(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
   explorer.nextStep(msg);
@@ -48,13 +48,20 @@ void toggleGotoListener(const std_msgs::Bool::ConstPtr& msg) {
 int main(int argc, char* argv[]) {
   ros::init(argc, argv, "exploration");
   ros::NodeHandle nh;
-  ros::Subscriber sub = nh.subscribe("/map", 1, exploreListener);
+  ros::Subscriber sub = nh.subscribe("/rtabmap/proj_map", 1, exploreListener);
   ros::Subscriber stateSub = nh.subscribe("/setExploreState", 1, toggleListener);
   ros::Subscriber toggleGoto = nh.subscribe("/toggleGoto", 1, toggleGotoListener);
   ros::Subscriber labelSub = nh.subscribe("/setVertexLabel", 1, vertexLabelListener);
   ros::Subscriber gotoSub = nh.subscribe("/gotoVertex", 1, gotoVertexListener);
   tf::TransformListener listener;
   ros::Rate rate(10);
+
+
+  float epsilon = 0.2;
+  if (nh.getParam("epsilon", epsilon)) {
+    ROS_INFO("Set Epsilon: %f", epsilon);
+    explorer.setEpsilon(epsilon);
+  }
 
   ROS_INFO("Exploration Started!");
 
@@ -64,6 +71,7 @@ int main(int argc, char* argv[]) {
         try
         {
             //ROS_INFO("Attempting to read pose...");
+            listener.waitForTransform("/map","/base_footprint",ros::Time(0), ros::Duration(5.0) );
             listener.lookupTransform("/map","/base_footprint",ros::Time(0), transform);
             float x = transform.getOrigin().x();
             float y = transform.getOrigin().y();

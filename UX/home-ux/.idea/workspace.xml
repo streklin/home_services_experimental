@@ -28,8 +28,8 @@
           <file leaf-file-name="Visualizations.css" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/containers/Visualizations/Visualizations.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="370">
-                  <caret line="59" column="16" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="16" />
+                <state relative-caret-position="510">
+                  <caret line="64" column="17" lean-forward="true" selection-start-line="46" selection-end-line="64" selection-end-column="17" />
                 </state>
               </provider>
             </entry>
@@ -128,13 +128,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="containers" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="home-ux" type="b2602c69:ProjectViewProjectNode" />
-              <item name="home-ux" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="containers" type="462c0819:PsiDirectoryNode" />
-              <item name="Visualizations" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -225,16 +218,15 @@
       <workItem from="1523198501574" duration="10187000" />
       <workItem from="1523274392531" duration="1873000" />
       <workItem from="1523480250729" duration="8000" />
-      <workItem from="1523708335960" duration="38000" />
+      <workItem from="1523708335960" duration="3295000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27885000" />
+    <option name="totallyTimeSpent" value="31142000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1600" height="864" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -249,7 +241,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.4993565" visible="true" weight="0.126703" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22393823" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15379666" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -595,8 +587,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/Visualizations/Visualizations.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="59" column="16" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="16" />
+        <state relative-caret-position="510">
+          <caret line="64" column="17" lean-forward="true" selection-start-line="46" selection-end-line="64" selection-end-column="17" />
         </state>
       </provider>
     </entry>

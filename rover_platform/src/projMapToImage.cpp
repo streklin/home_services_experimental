@@ -88,7 +88,7 @@ int main(int argc, char* argv[]) {
 
   ros::init(argc, argv, "projMapToImage");
   ros::NodeHandle nh;
-  ros::Subscriber sub = nh.subscribe("/map", 1, convertMapToImage);
+  ros::Subscriber sub = nh.subscribe("/rtabmap/proj_map", 1, convertMapToImage);
   tf::TransformListener listener;
   ros::Rate rate(10);
 
@@ -102,10 +102,12 @@ int main(int argc, char* argv[]) {
 
   while(ros::ok()) {
 
+
+
     tf::StampedTransform transform;
         try
         {
-            //ROS_INFO("Attempting to read pose...");
+            listener.waitForTransform("/map","/base_footprint",ros::Time(0), ros::Duration(5.0) );
             listener.lookupTransform("/map","/base_footprint",ros::Time(0), transform);
             g_robotX = transform.getOrigin().x();
             g_robotY = transform.getOrigin().y();
