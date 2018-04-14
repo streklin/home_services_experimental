@@ -159,6 +159,7 @@ add_executable(projMapToImage src/projMapToImage.cpp)
 add_executable(exploration src/exploration.cpp)
 add_executable(remoteControl src/remoteControl.cpp)
 add_executable(cameraCapture src/cameraCapture.cpp)
+add_executable(webcamCapture src/webcamCapture.cpp)
 add_executable(subsumptionCtrl src/subsumptionCtrl.cpp)
 
 target_link_libraries(
@@ -180,6 +181,12 @@ target_link_libraries(
 
 target_link_libraries(
   cameraCapture
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBS}
+)
+
+target_link_libraries(
+  webcamCapture
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
 )
