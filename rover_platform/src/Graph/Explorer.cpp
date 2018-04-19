@@ -68,6 +68,7 @@ Explorer::Explorer(float epsilon) {
   this->robotX = 0.0;
   this->robotY = 0.0;
   this->isActive = false;
+  this->isGotoActive = false;
 }
 
 void Explorer::updateGraph(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
@@ -150,13 +151,15 @@ bool Explorer::isFrontierPoint(int x, int y, const nav_msgs::OccupancyGrid::Cons
   bool hasUnknownPixel = false;
   bool hasFreePixel = false;
 
+  int unKnownPixelCount = 0;
+
   for (int i = startX; i <= endX; i++) {
 
     for(int j = startY; j <= endY; j++) {
 
       int occupancyProb = (int)msg->data[i + width * j];
       if (occupancyProb < 0) {
-        hasUnknownPixel = true;
+        unKnownPixelCount++;
       } else if(occupancyProb < threshold) {
         hasFreePixel = true;
       } else {
@@ -166,6 +169,8 @@ bool Explorer::isFrontierPoint(int x, int y, const nav_msgs::OccupancyGrid::Cons
     }
 
   }
+
+  if (unKnownPixelCount > 18) hasUnknownPixel = true;
 
   if (hasFreePixel && hasUnknownPixel && !hasObstaclePixel) {
     return true;
@@ -438,13 +443,17 @@ void Explorer::findPath(Vertex* v) {
     dest = this->g.getVertexByIndex(dest->getParent());
   }
 
+  int size = path.size();
+
+  ROS_INFO("****PATH SIZE: %d****", size);
+
   //reverse(path.begin(), path.end());
   this->path = path;
 }
 
 void Explorer::nextStep(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
 
-  ROS_INFO("Next Step");
+  ROS_INFO("************************Next Step*****************************");
 
   ROS_INFO("Update Graph");
   this->updateGraph(msg);
@@ -454,6 +463,8 @@ void Explorer::nextStep(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
   if (!this->isActive && !this->isGotoActive) {
     return;
   }
+
+  ROS_INFO("PATH SIZE: %d", (int)this->path.size());
 
   if (this->path.size() > 0) {
     ROS_INFO("Follow the path.");
@@ -537,9 +548,19 @@ void Explorer::clearCurrentPath() {
 }
 
 void Explorer::setGotoState(bool newState) {
+
+  if (newState) {
+    ROS_INFO("ACTIVATE GOTO STATE");
+  } else {
+    ROS_INFO("DEACTIVATE GOTO STATE");
+  }
+
   this->isGotoActive = newState;
 
-  if (!newState) this->clearCurrentPath();
+  if (!newState) {
+    ROS_INFO("CLEARING PATH");
+    this->clearCurrentPath();
+  }
 }
 
 void Explorer::setEpsilon(float epsilon) {

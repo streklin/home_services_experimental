@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import SERVER_URL from '../../settings';
+import {SERVER_URL} from '../../settings';
 import './Visualizations.css';
 
 const baseUrl = SERVER_URL;

@@ -49,14 +49,14 @@ void GoToVertexBehavior::disableGoToVertex() {
 }
 
 void GoToVertexBehavior::activate() {
-  ROS_INFO("ACTIVATING REMOTE CONTROL");
+  ROS_INFO("ACTIVATING GO TO VERTEX");
   this->disableExplorer();
   this->enableGoToVertex();
 
 }
 
 void GoToVertexBehavior::deactivate() {
-  ROS_INFO("DEACTIVATING REMOTE CONTROL");
+  ROS_INFO("DEACTIVATING GO TO VERTEX");
   this->disableGoToVertex();
 }
 

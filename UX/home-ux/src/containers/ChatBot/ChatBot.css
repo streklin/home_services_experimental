@@ -1,0 +1,38 @@
+.ChatBot {}
+
+.ChatBot .conversation {
+    width: 365px;
+    height: 524px;
+    border: 1px solid #ccc;
+    background-color: #eee;
+    padding: 4px;
+    overflow: scroll;
+}
+
+.ChatBot .chatInput input {
+    width: 360px;
+    padding: 5px;
+    border: 3px solid orange;
+}
+
+.ChatBot .userRequest {
+    background-color: white;
+    width: 90%;
+    padding: 5px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.ChatBot .botResponse {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: orange;
+    padding: 5px;
+    width: 90%;
+    border-radius: 10px;
+    color: white;
+    margin-left: 20px;
+    padding-left: 10px;
+}

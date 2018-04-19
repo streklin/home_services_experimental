@@ -56,7 +56,6 @@ int main(int argc, char* argv[]) {
   tf::TransformListener listener;
   ros::Rate rate(10);
 
-
   float epsilon = 0.2;
   if (nh.getParam("epsilon", epsilon)) {
     ROS_INFO("Set Epsilon: %f", epsilon);

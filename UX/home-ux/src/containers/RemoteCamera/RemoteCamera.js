@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './RemoteCamera.css';
-import SERVER_URL from '../../settings';
+import {SERVER_URL} from '../../settings';
 
 const baseUrl = SERVER_URL;
 
@@ -21,7 +21,7 @@ class RemoteCamera extends Component {
     render() {
         return (
             <div className="RemoteCamera">
-                <img src={this.state.camUrl} alt="Robot Camera Image" />
+                <img src={this.state.camUrl} alt="Robot Camera" />
             </div>
         )
     }
