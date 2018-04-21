@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(rover_platform)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -63,11 +63,12 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
+add_service_files(
+   FILES
+    blackboardQuery.srv
 #   Service1.srv
 #   Service2.srv
-# )
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -161,6 +162,7 @@ add_executable(remoteControl src/remoteControl.cpp)
 add_executable(cameraCapture src/cameraCapture.cpp)
 add_executable(webcamCapture src/webcamCapture.cpp)
 add_executable(subsumptionCtrl src/subsumptionCtrl.cpp)
+add_executable(blackboardServer src/Services/BlackboardServer.cpp)
 
 target_link_libraries(
   projMapToImage
@@ -195,6 +197,13 @@ target_link_libraries(
   subsumptionCtrl
   ${catkin_LIBRARIES}
 )
+
+target_link_libraries(
+  blackboardServer
+  ${catkin_LIBRARIES}
+)
+
+add_dependencies(blackboardServer rover_platform_gencpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the

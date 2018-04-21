@@ -2,8 +2,10 @@
 #define _INCL_VERTEX
 
 #include <string>
+#include "../Services/json.hpp"
 
 using namespace std;
+using json = nlohmann::json;
 
 class Vertex {
 private:
@@ -26,6 +28,7 @@ public:
   int getParent();
   void setLabel(string label);
   string getLabel();
+  string getJson();
 };
 
 Vertex::Vertex() {
@@ -81,6 +84,18 @@ void Vertex::setLabel(string label) {
 
 string Vertex::getLabel() {
   return this->label;
+}
+
+string Vertex::getJson() {
+  json response = {
+    {"Vertex", {
+      {"x", this->x},
+      {"y", this->y},
+      {"index", this->index}
+    }}
+  };
+
+  return response.dump();
 }
 
 #endif

@@ -60,7 +60,13 @@ class ChatBot extends Component {
             variables: req.slots
         };
 
-        axios.post(SERVER_URL + "robot/chat/lex", requestBody);
+        axios.post(SERVER_URL + "robot/chat/lex", requestBody)
+            .then((response) => {
+                if (response.data === "OK") return;
+
+                // need to append marvins response to the chat
+                this.appendResponse(response.data);
+            });
     };
 
     submitChatRequest = (query) => {
