@@ -11,7 +11,7 @@ class App extends Component {
 
         AWS.config.region = 'us-east-1'; // Region
         AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: 'us-east-1:4f6c8ea3-1716-48ac-8d9e-6303dcd3da30',
+            IdentityPoolId: 'XXXXXXX',
         });
 
         return (
