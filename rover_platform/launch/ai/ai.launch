@@ -7,11 +7,8 @@
   </node>
 
   <node pkg="rover_platform" name="subsumptionCtrl" type="subsumptionCtrl" output="screen" />
-
-  <node pkg="rover_platform" name="exploration" type="exploration" output="screen">
-  </node>
-
+  <node pkg="rover_platform" name="blackboardServer" type="blackboardServer" output="screen" />
+  <node pkg="rover_platform" name="navigation_node" type="navigation_node" output="screen"/>
   <node pkg="rover_platform" name="cameraCapture" type="cameraCapture" output="screen"></node>
-
 
 </launch>

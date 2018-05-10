@@ -156,13 +156,13 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/rover_platform_node.cpp)
-add_executable(projMapToImage src/projMapToImage.cpp)
-add_executable(exploration src/exploration.cpp)
-add_executable(remoteControl src/remoteControl.cpp)
-add_executable(cameraCapture src/cameraCapture.cpp)
-add_executable(webcamCapture src/webcamCapture.cpp)
-add_executable(subsumptionCtrl src/subsumptionCtrl.cpp)
+add_executable(projMapToImage src/nodes/projMapToImage.cpp)
+add_executable(exploration src/nodes/exploration.cpp)
+add_executable(remoteControl src/nodes/remoteControl.cpp)
+add_executable(cameraCapture src/nodes/cameraCapture.cpp)
+add_executable(subsumptionCtrl src/nodes/subsumptionCtrl.cpp)
 add_executable(blackboardServer src/Services/BlackboardServer.cpp)
+add_executable(navigation_node src/nodes/navigation.cpp)
 
 target_link_libraries(
   projMapToImage
@@ -177,18 +177,18 @@ target_link_libraries(
 )
 
 target_link_libraries(
+  navigation_node
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBS}
+)
+
+target_link_libraries(
   remoteControl
   ${catkin_LIBRARIES}
 )
 
 target_link_libraries(
   cameraCapture
-  ${catkin_LIBRARIES}
-  ${OpenCV_LIBS}
-)
-
-target_link_libraries(
-  webcamCapture
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
 )

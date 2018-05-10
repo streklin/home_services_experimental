@@ -32,9 +32,6 @@
 
   <include file="$(find rover_platform)/launch/slam/rtabmap.launch" />
   <include file="$(find rover_platform)/launch/slam/navigation.launch" />
-  <!--<include file="$(find rover_platform)/launch/ai/ai.launch" />-->
-
   <node name="remoteControl" pkg="rover_platform" type="remoteControl"></node>
 
-  <node pkg="rover_platform_middleware" name="middleware.js" type="middleware.js"></node>
 </launch>

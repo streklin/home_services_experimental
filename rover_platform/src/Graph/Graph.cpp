@@ -23,6 +23,7 @@ public:
   Vertex* getVertexByIndex(int index);
   Vertex* getVertexByLabel(string label);
   int getSize();
+  vector<Vertex*> findPath(Vertex* start, Vertex* goal);
 };
 
 Graph::Graph() {}
@@ -123,6 +124,62 @@ Vertex* Graph::getVertexByLabel(string label) {
   }
 
   return NULL;
+}
+
+vector<Vertex*> Graph::findPath(Vertex* start, Vertex* goal) {
+  vector<Vertex*> path;
+
+  vector<Vertex*> stack;
+  vector<Vertex*> visited;
+
+  start->setParent(-1);
+  stack.push_back(start);
+
+  bool goalReached = false;
+  while(stack.size() > 0 && !goalReached) {
+
+    Vertex* next = stack.back();
+    stack.pop_back();
+
+    visited.push_back(next);
+
+    if (goal->getIndex() == next->getIndex()) {
+      goalReached = true;
+      continue;
+    }
+
+    vector<Vertex*> frontier = this->getConnectedVertices(next->getIndex());
+
+    for(int i = 0; i < frontier.size(); i++) {
+      Vertex* fv = frontier[i];
+
+      bool found = false;
+      for(int j = 0; j < visited.size(); j++) {
+        Vertex* vv = visited[j];
+
+        if (fv->getIndex() == vv->getIndex()) {
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        fv->setParent(next->getIndex());
+        stack.push_back(fv);
+      }
+    }
+  }
+
+  // extract the path
+  Vertex* dest = visited.back();
+
+  while(dest->getParent() > 0) {
+    path.push_back(dest);
+    dest = this->getVertexByIndex(dest->getParent());
+  }
+
+  return path;
+
 }
 
 #endif

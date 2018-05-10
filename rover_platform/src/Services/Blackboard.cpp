@@ -18,10 +18,10 @@ private:
 
   string createError(string errorMsg);
 
-  void addVertex(string query);
   void addEdge(string query);
   void setCurrentLocation(string query);
   void setCurrentLabel(string query);
+  string addVertex(string query);
   string queryCurrentLocation();
   string getClosestVertex(string query);
   string getClosestVertexInBall(string query);
@@ -30,6 +30,7 @@ private:
   string getVertexByLabel(string query);
   string getSize();
   string getCurrentLabel();
+  string findPath(string query);
 public:
   Blackboard();
   string performQuery(string query);
@@ -58,7 +59,7 @@ string Blackboard::queryCurrentLocation() {
   return this->currentLocation->getJson();
 }
 
-void Blackboard::addVertex(string query) {
+string Blackboard::addVertex(string query) {
   auto vertexData = json::parse(query);
 
   float x = vertexData["Vertex"]["x"];
@@ -67,6 +68,8 @@ void Blackboard::addVertex(string query) {
 
   Vertex* v = new Vertex(x,y,index);
   this->g->addVertex(v);
+
+  return v->getJson();
 }
 
 void Blackboard::setCurrentLocation(string query) {
@@ -131,6 +134,8 @@ string Blackboard::getVertexByIndex(string query) {
   int index = vertexData["Vertex"]["index"];
   Vertex* result = this->g->getVertexByIndex(index);
 
+  if (result == NULL) return this->createError("EMPTY");
+
   return result->getJson();
 }
 
@@ -139,6 +144,8 @@ string Blackboard::getVertexByLabel(string query) {
 
   string label = vertexData["Vertex"]["label"];
   Vertex* result = this->g->getVertexByLabel(label);
+
+  if (result == NULL) return this->createError("EMPTY");
 
   return result->getJson();
 }
@@ -159,6 +166,29 @@ void Blackboard::setCurrentLabel(string query) {
   this->currentLocation->setLabel(vertexLabel["Vertex"]["label"]);
 }
 
+string Blackboard::findPath(string query) {
+  auto pathQuery = json::parse(query);
+
+  float x = pathQuery["Vertex"]["x"];
+  float y = pathQuery["Vertex"]["y"];
+  int index = pathQuery["Vertex"]["index"];
+
+  Vertex* goal = new Vertex(x, y, index);
+
+  vector<Vertex*> result = this->g->findPath(this->currentLocation, goal);
+
+  cout << "Generating Path JSON" << endl;
+
+  json response = json::array();
+  for(int i = 0; i < result.size(); i++) {
+    json obj = result[i]->getJson();
+    response.insert(response.end(), obj);
+  }
+
+  return response.dump();
+
+}
+
 string Blackboard::performQuery(string query) {
   auto queryData = json::parse(query);
 
@@ -166,7 +196,7 @@ string Blackboard::performQuery(string query) {
 
   cout << "Command: " << command << endl;
 
-  if (command == "addVertex") this->addVertex(query);
+  if (command == "addVertex") return this->addVertex(query);
   if (command == "addEdge") this->addEdge(query);
   if (command == "setCurrentLocation") this->setCurrentLocation(query);
   if (command == "queryCurrentLocation") return this->queryCurrentLocation();
@@ -177,6 +207,7 @@ string Blackboard::performQuery(string query) {
   if (command == "getVertexByLabel") return this->getVertexByLabel(query);
   if (command == "getSize") return this->getSize();
   if (command == "setCurrentLabel") this->setCurrentLabel(query);
+  if (command == "findPath") return this->findPath(query);
 
   return "OK";
 

@@ -24,21 +24,40 @@ void vertexLabelListener(const std_msgs::String::ConstPtr& msg) {
   cout << "CURRENT LABEL: " << label << endl;
 }
 
+void mapListener(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
+  g_navigation->nextStep(msg);
+}
+
+void toggleManualNavigation(const std_msgs::Bool::ConstPtr& msg) {
+  ROS_INFO("toggleManualNavigation()");
+  g_navigation->setGotoState(msg->data);
+}
+
+void toggleExploration(const std_msgs::Bool::ConstPtr& msg) {
+  ROS_INFO("toggleExploration()");
+  if(msg->data) {
+    g_navigation->activate();
+  } else {
+    g_navigation->deactivate();
+    //g_navigation->clearCurrentPath();
+  }
+}
+
+void gotoVertexListener(const std_msgs::String::ConstPtr& msg) {
+  ROS_INFO("Plotting a path to: %s", msg->data.c_str());
+  g_navigation->gotoPlace(msg->data);
+}
+
 
 int main(int argc, char* argv[]) {
   ros::init(argc, argv, "exploration");
   ros::NodeHandle nh;
 
-
-  /*
-  ros::Subscriber sub = nh.subscribe("/rtabmap/proj_map", 1, exploreListener);
-  ros::Subscriber stateSub = nh.subscribe("/setExploreState", 1, toggleListener);
-  ros::Subscriber toggleGoto = nh.subscribe("/toggleGoto", 1, toggleGotoListener);
-  ros::Subscriber labelSub = nh.subscribe("/setVertexLabel", 1, vertexLabelListener);
-  ros::Subscriber gotoSub = nh.subscribe("/gotoVertex", 1, gotoVertexListener);
-  */
   ros::ServiceClient client = nh.serviceClient<rover_platform::blackboardQuery>("blackboard");
   ros::Subscriber labelSub = nh.subscribe("/setVertexLabel", 1, vertexLabelListener);
+  ros::Subscriber sub = nh.subscribe("/rtabmap/proj_map", 1, mapListener);
+  ros::Subscriber stateSub = nh.subscribe("/setExploreState", 1, toggleExploration);
+  ros::Subscriber gotoSub = nh.subscribe("/gotoVertex", 1, gotoVertexListener);
 
   tf::TransformListener listener;
   ros::Rate rate(10);
@@ -55,6 +74,21 @@ int main(int argc, char* argv[]) {
 
   while(ros::ok()) {
     // capture current transform information
+    tf::StampedTransform transform;
+        try
+        {
+            listener.waitForTransform("/map","/base_footprint",ros::Time(0), ros::Duration(5.0) );
+            listener.lookupTransform("/map","/base_footprint",ros::Time(0), transform);
+            float x = transform.getOrigin().x();
+            float y = transform.getOrigin().y();
+
+            g_navigation->setRobotPosition(x,y);
+        }
+        catch (tf::TransformException ex)
+        {
+            ROS_ERROR("Nope! %s", ex.what());
+        }
+
 
     ros::spinOnce();
     rate.sleep();

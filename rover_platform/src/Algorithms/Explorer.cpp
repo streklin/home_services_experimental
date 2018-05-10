@@ -309,7 +309,6 @@ Point Explorer::chooseClosestBoundaryPoint(vector<Point> boundary) {
     d = pow(this->robotMapX - kpX, 2) + pow(this->robotMapY - kpY, 2);
 
     //ROS_INFO("Distance: %f", d);
-
     if (d < distance && d > 400.0) {
       distance = d;
       Point n(kpX, kpY);
