@@ -1,0 +1,45 @@
+.remote-controls {
+    display: inline-block;
+    position: relative;
+    left: 28%;
+}
+
+.remote-controls .controls-container {
+    position: relative;
+    width: 150px;
+    display: inline-block;
+    height: 220px;
+    font-size: 80px;
+    color: orange;
+}
+
+.remote-controls .remote-button {
+    position: relative;
+    display: inline-block;
+}
+
+.remote-controls .remote-middle {
+    width: 100%;
+    top: -30px;
+}
+
+.remote-controls .remote-up {
+    left: 46px;
+    top: 6px;
+}
+
+.remote-controls .remote-left {
+
+}
+
+.remote-controls .remote-stop {
+
+}
+
+.remote-controls .remote-right {
+}
+
+.remote-controls .remote-down {
+    top: -71px;
+    left: 43px;
+}

@@ -1,0 +1,28 @@
+.Footer {
+    display: inline-block;
+    width: 100%;
+    background-color: orange;
+    vertical-align: bottom;
+    position: relative;
+    top: -165px;
+    border-top: 2px solid white;
+}
+
+.Footer .column {
+    display: inline-block;
+}
+
+.Footer .column img {
+    width: 64px;
+    height: 64px;
+    position: relative;
+    top: 10px;
+    left: 10px
+}
+
+.Footer .column .contactInfo {
+    color: white;
+    margin-left: 25px
+}
+
+

@@ -1,0 +1,10 @@
+.SLAM {
+    display: inline-block;
+    vertical-align: top;
+    float: right;
+    border-left: 5px solid black;
+}
+
+.SLAM img {
+    height: 200px;
+}

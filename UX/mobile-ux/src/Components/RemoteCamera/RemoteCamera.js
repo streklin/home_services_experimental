@@ -1,0 +1,12 @@
+import React from 'react';
+import './RemoteCamera.css';
+
+const remoteCamera = (props) => {
+    return (
+        <div className="RemoteCamera">
+            <img src={props.camUrl} alt="Robot Camera" />
+        </div>
+    )
+};
+
+export default remoteCamera;

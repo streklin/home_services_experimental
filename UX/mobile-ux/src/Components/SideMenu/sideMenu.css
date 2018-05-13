@@ -1,0 +1,30 @@
+.sideMenu {
+    width: 30%;
+    height: 100%;
+    background: black;
+    color: white;
+    display: inline-block;
+}
+
+.sideMenu .menuOptionList {
+    height: 100%;
+    padding: 10%;
+}
+
+.sideMenu .menuOption {
+    padding: 5%;
+    border-bottom:1px dotted white;
+    cursor: pointer;
+}
+
+.sideMenu .menuOption:hover {
+    color: orange;
+}
+
+.sideMenu .menuOption span {}
+
+@media only screen and (max-width: 768px) {
+    .sideMenu {
+        width: 80%;
+    }
+}
