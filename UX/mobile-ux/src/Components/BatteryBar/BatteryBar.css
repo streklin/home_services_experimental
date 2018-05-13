@@ -1,0 +1,21 @@
+.BatteryBar {
+    background-color: grey;
+    border: 1px solid white;
+    width: 300px;
+    height: 40px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.BatteryBar .powerLevel {
+    height: 40px;
+}
+
+.BatteryBar .powerLevel.good {
+    background-color: green;
+}
+
+.BatteryBar .powerLevel.bad {
+    background-color: red;
+}

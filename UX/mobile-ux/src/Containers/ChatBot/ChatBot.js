@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as actionCreators from '../../store/actionCreators';
 import { connect } from 'react-redux';
+import './ChatBot.css';
 
 export class ChatBot extends Component {
 
