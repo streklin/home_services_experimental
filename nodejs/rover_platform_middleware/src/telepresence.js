@@ -2,10 +2,11 @@
 const server = require('http').createServer();
 const io = require('socket.io')(server);
 
+
 io.on('connection', (client) => {
 
     client.on('receiveImage', (data) => {
-        client.emit("broadcastImage", data);
+        io.sockets.emit('broadcastImage', data);
     });
 
 });
