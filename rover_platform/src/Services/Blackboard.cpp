@@ -21,6 +21,8 @@ private:
   void addEdge(string query);
   void setCurrentLocation(string query);
   void setCurrentLabel(string query);
+  void saveDataToCurrentLocation(string query);
+
   string addVertex(string query);
   string queryCurrentLocation();
   string getClosestVertex(string query);
@@ -31,6 +33,8 @@ private:
   string getSize();
   string getCurrentLabel();
   string findPath(string query);
+  string getDataFromCurrentLocation();
+
 public:
   Blackboard();
   string performQuery(string query);
@@ -189,6 +193,19 @@ string Blackboard::findPath(string query) {
 
 }
 
+void Blackboard::saveDataToCurrentLocation(string query) {
+  if (this->currentLocation == NULL) return;
+  this->currentLocation->data = query;
+}
+
+string Blackboard::getDataFromCurrentLocation() {
+  if (this->currentLocation == NULL) {
+    return this->createError("EMPTY");
+  }
+
+  return this->currentLocation->data;
+}
+
 string Blackboard::performQuery(string query) {
   auto queryData = json::parse(query);
 
@@ -208,6 +225,9 @@ string Blackboard::performQuery(string query) {
   if (command == "getSize") return this->getSize();
   if (command == "setCurrentLabel") this->setCurrentLabel(query);
   if (command == "findPath") return this->findPath(query);
+  if (command == "saveDataToCurrentLocation") this->saveDataToCurrentLocation(query);
+  if (command == "getDataFromCurrentLocation") return this->getDataFromCurrentLocation();
+
 
   return "OK";
 

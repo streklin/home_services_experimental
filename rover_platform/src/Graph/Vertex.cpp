@@ -15,7 +15,10 @@ private:
   int parent; // used for book keeping during search
   bool explored;
   string label;
+
 public:
+
+  string data;
 
   Vertex();
   Vertex(float x, float y, int index);
@@ -124,5 +127,6 @@ Vertex* Vertex::createVertexFromJson(json data) {
 
   return new Vertex(x, y, index, parent, label);
 }
+
 
 #endif

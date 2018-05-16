@@ -157,7 +157,6 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/rover_platform_node.cpp)
 add_executable(projMapToImage src/nodes/projMapToImage.cpp)
-add_executable(exploration src/nodes/exploration.cpp)
 add_executable(remoteControl src/nodes/remoteControl.cpp)
 add_executable(cameraCapture src/nodes/cameraCapture.cpp)
 add_executable(subsumptionCtrl src/nodes/subsumptionCtrl.cpp)
@@ -166,12 +165,6 @@ add_executable(navigation_node src/nodes/navigation.cpp)
 
 target_link_libraries(
   projMapToImage
-  ${catkin_LIBRARIES}
-  ${OpenCV_LIBS}
-)
-
-target_link_libraries(
-  exploration
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
 )
