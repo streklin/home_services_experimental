@@ -19,7 +19,10 @@ const sideMenu = (props) => {
                     </NavLink>
                 </div>
                 <div className="menuOption">
-                    <span>Telepresence</span>
+                    <NavLink to="/telepresence" exact={true} activeClassName="active">
+                        <span>Telepresence</span>
+                    </NavLink>
+
                 </div>
                 <div className="menuOption">
                     <NavLink to="/status" exact={true} activeClassName="active">

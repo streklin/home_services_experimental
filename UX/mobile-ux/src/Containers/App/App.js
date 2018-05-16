@@ -4,6 +4,7 @@ import SideMeu from '../../Components/SideMenu/sideMenu';
 import RobotControls from '../RobotControls/RobotControls';
 import ChatBot from '../ChatBot/ChatBot';
 import RobotStatus from '../RobotStatus/RobotStatus';
+import Telepresence from '../Telepresence/Telepresence';
 import AWS from 'aws-sdk';
 import './App.css';
 
@@ -43,6 +44,13 @@ class App extends Component {
                             exact
                             component={RobotStatus}
                         />
+
+                        <Route
+                            path="/telepresence"
+                            exact
+                            component={Telepresence}
+                        />
+
 
                     </div>
                 </div>

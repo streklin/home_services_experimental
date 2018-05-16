@@ -1,0 +1,14 @@
+.Telepresence .controls {
+    position: absolute;
+    top: 70%;
+    left: 55%;
+}
+
+.Telepresence .controls .remote-controls {
+    left: 0%;
+}
+
+.Telepresence .controls .webCam {
+    display: inline-block;
+    vertical-align: top;
+}
