@@ -13,8 +13,10 @@
 #include "std_msgs/Bool.h"
 #include "../Algorithms/Navigation.cpp"
 #include "std_msgs/String.h"
+#include "../Algorithms/SubsumptionNode.cpp"
 
 Navigation* g_navigation;
+SubsumptionNode* g_subsumptionNode;
 
 void vertexLabelListener(const std_msgs::String::ConstPtr& msg) {
   ROS_INFO("Received MSG: %s", msg->data.c_str());
@@ -26,21 +28,6 @@ void vertexLabelListener(const std_msgs::String::ConstPtr& msg) {
 
 void mapListener(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
   g_navigation->nextStep(msg);
-}
-
-void toggleManualNavigation(const std_msgs::Bool::ConstPtr& msg) {
-  ROS_INFO("toggleManualNavigation()");
-  g_navigation->setGotoState(msg->data);
-}
-
-void toggleExploration(const std_msgs::Bool::ConstPtr& msg) {
-  ROS_INFO("toggleExploration()");
-  if(msg->data) {
-    g_navigation->activate();
-  } else {
-    g_navigation->deactivate();
-    //g_navigation->clearCurrentPath();
-  }
 }
 
 void gotoVertexListener(const std_msgs::String::ConstPtr& msg) {
@@ -56,7 +43,6 @@ int main(int argc, char* argv[]) {
   ros::ServiceClient client = nh.serviceClient<rover_platform::blackboardQuery>("blackboard");
   ros::Subscriber labelSub = nh.subscribe("/setVertexLabel", 1, vertexLabelListener);
   ros::Subscriber sub = nh.subscribe("/rtabmap/proj_map", 1, mapListener);
-  ros::Subscriber stateSub = nh.subscribe("/setExploreState", 1, toggleExploration);
   ros::Subscriber gotoSub = nh.subscribe("/gotoVertex", 1, gotoVertexListener);
 
   tf::TransformListener listener;
@@ -70,9 +56,19 @@ int main(int argc, char* argv[]) {
   g_navigation = new Navigation(epsilon);
   g_navigation->setServiceClient(client);
 
+  g_subsumptionNode = new SubsumptionNode("navigation", 0);
+  g_subsumptionNode->start(nh);
+
   ROS_INFO("Navigation Node Started");
 
   while(ros::ok()) {
+
+    if (g_subsumptionNode->isActive()) {
+      g_navigation->activate();
+    } else {
+      g_navigation->deactivate();
+    }
+
     // capture current transform information
     tf::StampedTransform transform;
         try

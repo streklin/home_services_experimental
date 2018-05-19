@@ -159,7 +159,6 @@ include_directories(
 add_executable(projMapToImage src/nodes/projMapToImage.cpp)
 add_executable(remoteControl src/nodes/remoteControl.cpp)
 add_executable(cameraCapture src/nodes/cameraCapture.cpp)
-add_executable(subsumptionCtrl src/nodes/subsumptionCtrl.cpp)
 add_executable(blackboardServer src/Services/BlackboardServer.cpp)
 add_executable(navigation_node src/nodes/navigation.cpp)
 
@@ -184,11 +183,6 @@ target_link_libraries(
   cameraCapture
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
-)
-
-target_link_libraries(
-  subsumptionCtrl
-  ${catkin_LIBRARIES}
 )
 
 target_link_libraries(
