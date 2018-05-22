@@ -35,6 +35,18 @@ void gotoVertexListener(const std_msgs::String::ConstPtr& msg) {
   g_navigation->gotoPlace(msg->data);
 }
 
+void activateExploreListener(const std_msgs::Bool::ConstPtr& msg) {
+  ROS_INFO("activateExploreMode");
+
+  if (msg->data) {
+      ROS_INFO("ACTIVATE");
+      g_subsumptionNode->activate();
+  } else {
+      ROS_INFO("DEACTIVATE");
+      g_subsumptionNode->deActivate();
+  }
+}
+
 
 int main(int argc, char* argv[]) {
   ros::init(argc, argv, "exploration");
@@ -44,6 +56,8 @@ int main(int argc, char* argv[]) {
   ros::Subscriber labelSub = nh.subscribe("/setVertexLabel", 1, vertexLabelListener);
   ros::Subscriber sub = nh.subscribe("/rtabmap/proj_map", 1, mapListener);
   ros::Subscriber gotoSub = nh.subscribe("/gotoVertex", 1, gotoVertexListener);
+
+  ros::Subscriber activateExploreMode = nh.subscribe("/activate_explore", 1, activateExploreListener);
 
   tf::TransformListener listener;
   ros::Rate rate(10);
@@ -56,7 +70,7 @@ int main(int argc, char* argv[]) {
   g_navigation = new Navigation(epsilon);
   g_navigation->setServiceClient(client);
 
-  g_subsumptionNode = new SubsumptionNode("navigation", 0);
+  g_subsumptionNode = new SubsumptionNode("navigation", 1);
   g_subsumptionNode->start(nh);
 
   ROS_INFO("Navigation Node Started");

@@ -2,11 +2,13 @@
 #include <geometry_msgs/Twist.h>
 #include "std_msgs/Bool.h"
 #include "std_msgs/String.h"
+#include "../Algorithms/SubsumptionNode.cpp"
 
 float forwardVelocity = 0.0;
 float angularVelocity = 0.0;
 
 bool g_remoteControlOn = true;
+SubsumptionNode* g_subsumptionNode;
 
 void forwardTwist() {
   forwardVelocity += 0.2;
@@ -58,8 +60,16 @@ void readCommand(const std_msgs::String::ConstPtr& msg) {
 }
 
 void toggleListener(const std_msgs::Bool::ConstPtr& exploreActive) {
-  g_remoteControlOn = exploreActive->data;
+  //g_remoteControlOn = exploreActive->data;
+  if (exploreActive->data) {
+    g_subsumptionNode->activate();
+  } else {
+    g_subsumptionNode->deActivate();
+  }
+
 }
+
+
 
 int main(int argc, char* argv[]) {
   ros::init(argc, argv, "remoteControl");
@@ -69,7 +79,13 @@ int main(int argc, char* argv[]) {
   ros::Publisher pub = nh.advertise<geometry_msgs::Twist>("cmd_vel", 1000);
   ros::Rate rate(10);
 
+  g_subsumptionNode = new SubsumptionNode("navigation", 0);
+  g_subsumptionNode->start(nh);
+  g_subsumptionNode->activate();
+
   while(ros::ok()) {
+
+    g_remoteControlOn = g_subsumptionNode->isActive();
 
     // only respond to remote control when auto map is disabled, otherwise
     // the two cmd_vels will intefere with each other causing problems for the

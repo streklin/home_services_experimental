@@ -51,8 +51,8 @@ public:
 SubsumptionNode::SubsumptionNode(string branchName, int level) {
   this->branchName = branchName;
   this->level = level;
-  this->active = true;
-  this->supressed = true;
+  this->active = false;
+  this->supressed = false;
 
   string levelStr = std::to_string(this->level);
   string msgData = this->branchName + "-" + levelStr;
