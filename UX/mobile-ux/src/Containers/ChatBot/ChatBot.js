@@ -26,6 +26,10 @@ export class ChatBot extends Component {
         if (this.props.isChatLocked) return;
 
         this.props.sendChatRequest(this.state.chatText);
+
+        let newState = Object.assign({}, this.state);
+        newState.chatText = "";
+        this.setState(newState);
     };
 
     render() {
