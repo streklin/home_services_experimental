@@ -12,6 +12,7 @@ exports.robotStateManager = function() {
     let stateMachine = function(rosNode) {
         this.remoteControlPublisher = rosNode.advertise('/remoteControl', std_msgs.String);
         this.autoMapStatePublisher = rosNode.advertise('/activate_explore', std_msgs.Bool);
+        this.gotoVertexPublisher = rosNode.advertise('/gotoVertex', std_msgs.String);
 
         rosNode.subscribe("battery/charge_ratio", std_msgs.Float32, (msg) => {
             this.updateBatteryCharge(msg);
@@ -70,10 +71,14 @@ exports.robotStateManager = function() {
     };
 
     stateMachine.prototype.toggleAutoMap = function() {
-        if (robotState.isAutoMapActive) {
-            activateAutoMapBehavior.call(this);
+
+        let isAutoMapActive = robotState.get('isAutoMapActive');
+        robotState.Set('isAutoMapActive', !isAutoMapActive);
+
+        if (!isAutoMapActive) {
+            this.activateAutoMapBehavior();
         } else {
-            disableAutoMapBehavior.call(this);
+            this.disableAutoMapBehavior();
         }
     };
 
@@ -83,17 +88,32 @@ exports.robotStateManager = function() {
         this.remoteControlPublisher.publish(msg);
     };
 
-    function activateAutoMapBehavior() {
+    stateMachine.prototype.activateAutoMapBehavior = function() {
         let msg = new std_msgs.Bool();
         msg.data = true;
         this.autoMapStatePublisher.publish(msg);
-    }
+    };
 
-    function disableAutoMapBehavior() {
+    stateMachine.prototype.disableAutoMapBehavior = function() {
         let msg = new std_msgs.Bool();
         msg.data = false;
         this.autoMapStatePublisher.publish(msg);
-    }
+    };
+
+    stateMachine.prototype.travelTo = function(label) {
+        let msg = new std_msgs.String();
+        msg.data = label;
+        this.gotoVertexPublisher.publish(msg);
+    };
+
+    stateMachine.prototype.status = function() {
+        let batteryPower = robotState.get('batteryPower');
+        if (batteryPower < 25) {
+            return "I am low on power";
+        }
+
+        return "I am working as expected";
+    };
 
     return stateMachine.getInstance;
 

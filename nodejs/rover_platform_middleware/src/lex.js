@@ -6,11 +6,11 @@ const std_msgs = rosnodejs.require('std_msgs').msg;
 const blackboardQueryMsg = rosnodejs.require('rover_platform').srv.blackboardQuery;
 
 exports.lexResponder = function() {
-
-
+    
     let instance = null;
 
     let blackboardClient = null;
+    let robotStateService = null;
 
     let lexIntents = {
         "LabelPlace": (slots) => {
@@ -32,9 +32,10 @@ exports.lexResponder = function() {
 
         },
         "GetStatus": (slots) => {
-            // currently don't have a status node, will need to design one.
             return new Promise( (resolve, reject) => {
-                resolve("OK");
+                // currently only checks the battery power of the iRobot Create 2
+                let status = robotStateService.status();
+                resolve(status);
             });
 
         },
@@ -61,23 +62,27 @@ exports.lexResponder = function() {
         },
         "StartMapping": (slots) => {
             return new Promise( (resolve, reject) => {
+                robotStateService.activateAutoMapBehavior();
                 resolve("OK");
             });
         },
         "StopMapping": (slots) => {
             return new Promise( (resolve, reject) => {
+                robotStateService.disableAutoMapBehavior();
                 resolve("OK");
             });
         },
         "TravelTo": (slots) => {
             return new Promise( (resolve, reject) => {
+                let room = slots.Room;
+                robotStateService.travelTo(room);
                 resolve("OK");
             });
         }
     };
 
     let lexResponder = function(rosNode, robotState) {
-        this.robotState = robotState;
+        robotStateService = robotState;
         blackboardClient = rosNode.serviceClient('/blackboard', 'rover_platform/blackboardQuery');
     };
 
