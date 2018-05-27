@@ -72,8 +72,14 @@ app.get('/robot/state/getState', (req, res) => {
 });
 
 app.post('/robot/chat/lex', (req, res) => {
-    const result = lexHandler.processIntent(req.body);
-    res.send(result);
+    let promise = lexHandler.processIntent(req.body);
+    promise
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((err) => {
+            res.send("There was a problem processing your request.");
+        });
 });
 
 rosnodejs.initNode('/middleware', { onTheFly: true})
@@ -82,3 +88,4 @@ rosnodejs.initNode('/middleware', { onTheFly: true})
         lexHandler = awsLex.lexResponder()(rosNode, robotState);
         app.listen(8080, () => console.log('Example app listening on port 8080!'));
     });
+

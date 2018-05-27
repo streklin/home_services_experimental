@@ -22,27 +22,43 @@ exports.lexResponder = function() {
                 }
             };
 
+            return new Promise((resolve, reject) => {
+                let request = new blackboardQueryMsg.Request();
+                request.query = JSON.stringify(command);
+                blackboardClient.call(request);
+                resolve("OK");
+            });
 
-            let request = new blackboardQueryMsg.Request();
-            request.query = JSON.stringify(command);
-            blackboardClient.call(request);
 
-            return "OK";
         },
         "GetStatus": (slots) => {
-            return "OK";
+            // currently don't have a status node, will need to design one.
+
         },
         "GetLocation": (slots) => {
-            return "OK";
+
+            let command = {
+                "Command": "queryCurrentLocation"
+            };
+
+            return new Promise( (resolve, reject) => {
+                let request = new blackboardQueryMsg.Request();
+                request.query = JSON.stringify(command);
+
+                blackboardClient.call(request)
+                    .then((response) => {
+                        resolve("OK");
+                    })
+                    .catch(() => {
+                        reject("I do not know where I am!");
+                    });
+            });
         },
         "StartMapping": (slots) => {
-            return "OK";
         },
         "StopMapping": (slots) => {
-            return "OK";
         },
         "TravelTo": (slots) => {
-            return "OK";
         }
     };
 
