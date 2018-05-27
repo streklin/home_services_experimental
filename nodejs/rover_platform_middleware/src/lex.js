@@ -33,6 +33,9 @@ exports.lexResponder = function() {
         },
         "GetStatus": (slots) => {
             // currently don't have a status node, will need to design one.
+            return new Promise( (resolve, reject) => {
+                resolve("OK");
+            });
 
         },
         "GetLocation": (slots) => {
@@ -47,18 +50,29 @@ exports.lexResponder = function() {
 
                 blackboardClient.call(request)
                     .then((response) => {
-                        resolve("OK");
+                        let vertex = JSON.parse(response.response);
+                        resolve("I am currently in the " + vertex.Vertex.label);
                     })
-                    .catch(() => {
+                    .catch((err) => {
+                        console.log(err);
                         reject("I do not know where I am!");
                     });
             });
         },
         "StartMapping": (slots) => {
+            return new Promise( (resolve, reject) => {
+                resolve("OK");
+            });
         },
         "StopMapping": (slots) => {
+            return new Promise( (resolve, reject) => {
+                resolve("OK");
+            });
         },
         "TravelTo": (slots) => {
+            return new Promise( (resolve, reject) => {
+                resolve("OK");
+            });
         }
     };
 

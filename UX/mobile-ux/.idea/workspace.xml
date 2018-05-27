@@ -47,8 +47,8 @@
       <file leaf-file-name="actionCreators.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/store/actionCreators.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
+            <state relative-caret-position="337">
+              <caret line="68" column="22" lean-forward="true" selection-start-line="68" selection-start-column="22" selection-end-line="68" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -65,8 +65,8 @@
       <file leaf-file-name="lex.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../../nodejs/rover_platform_middleware/src/lex.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="795">
-              <caret line="56" column="36" lean-forward="true" selection-start-line="56" selection-start-column="36" selection-end-line="56" selection-end-column="36" />
+            <state relative-caret-position="300">
+              <caret line="53" column="80" selection-start-line="53" selection-start-column="80" selection-end-line="53" selection-end-column="80" />
             </state>
           </provider>
         </entry>
@@ -115,7 +115,6 @@
         <option value="$PROJECT_DIR$/src/store/actions.js" />
         <option value="$PROJECT_DIR$/src/store/tests/appStore.test.js" />
         <option value="$PROJECT_DIR$/src/store/reducers/appStore.js" />
-        <option value="$PROJECT_DIR$/src/store/actionCreators.js" />
         <option value="$PROJECT_DIR$/src/Components/CreateSensors/CreateSensors.js" />
         <option value="$PROJECT_DIR$/src/Components/CreateSensors/CreateSensors.css" />
         <option value="$PROJECT_DIR$/src/Containers/RobotStatus/RobotStatus.css" />
@@ -140,6 +139,7 @@
         <option value="$PROJECT_DIR$/../../nodejs/rover_platform_middleware/src/robotState.js" />
         <option value="$PROJECT_DIR$/src/Containers/ChatBot/ChatBot.js" />
         <option value="$PROJECT_DIR$/../../nodejs/rover_platform_middleware/src/middleware.js" />
+        <option value="$PROJECT_DIR$/src/store/actionCreators.js" />
         <option value="$PROJECT_DIR$/../../nodejs/rover_platform_middleware/src/lex.js" />
       </list>
     </option>
@@ -161,7 +161,7 @@
     <handled-path value="$PROJECT_DIR$/../telepresence-client/node_modules" />
     <handled-path value="$PROJECT_DIR$/../../nodejs/rover_platform_middleware/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="222" />
     <option name="y" value="28" />
     <option name="width" value="970" />
@@ -378,12 +378,12 @@
       <workItem from="1526213878812" duration="16669000" />
       <workItem from="1526437085342" duration="3316000" />
       <workItem from="1526841951870" duration="4496000" />
-      <workItem from="1527256294665" duration="20670000" />
+      <workItem from="1527256294665" duration="22669000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66479000" />
+    <option name="totallyTimeSpent" value="68478000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1600" height="864" extended-state="6" />
@@ -757,20 +757,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Containers/ChatBot/ChatBot.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="23" column="9" lean-forward="true" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/store/actionCreators.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../nodejs/rover_platform_middleware/src/robotState.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1027">
@@ -785,6 +771,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Containers/ChatBot/ChatBot.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="23" column="9" lean-forward="true" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/store/actionCreators.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="68" column="22" lean-forward="true" selection-start-line="68" selection-start-column="22" selection-end-line="68" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../../nodejs/rover_platform_middleware/src/middleware.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1365">
@@ -794,8 +794,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../../nodejs/rover_platform_middleware/src/lex.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="56" column="36" lean-forward="true" selection-start-line="56" selection-start-column="36" selection-end-line="56" selection-end-column="36" />
+        <state relative-caret-position="300">
+          <caret line="53" column="80" selection-start-line="53" selection-start-column="80" selection-end-line="53" selection-end-column="80" />
         </state>
       </provider>
     </entry>

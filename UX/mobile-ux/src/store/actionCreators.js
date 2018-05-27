@@ -65,7 +65,7 @@ function sendChatRequestToRobot(dispatch, data) {
             // need to append marvins response to the chat
             let newResponse = (
                 <div className="botResponse">
-                    {data.message}
+                    {response.data}
                 </div>
             );
 
