@@ -6,7 +6,7 @@ const std_msgs = rosnodejs.require('std_msgs').msg;
 const blackboardQueryMsg = rosnodejs.require('rover_platform').srv.blackboardQuery;
 
 exports.lexResponder = function() {
-    
+
     let instance = null;
 
     let blackboardClient = null;
@@ -95,6 +95,8 @@ exports.lexResponder = function() {
     };
 
     lexResponder.prototype.processIntent = function(data) {
+
+        console.log(data)
 
         if (data.intent === undefined || data.intent === null) throw "";
         if (!lexIntents.hasOwnProperty(data.intent)) throw "processIntent - unknown intent";
