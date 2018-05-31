@@ -2,6 +2,7 @@ import * as actionTypes from '../actions';
 
 const initialState = {
     isMenuOpen: false,
+    token: null,
     mapUrl: null,
     camUrl: null,
     showError: false,
@@ -106,31 +107,41 @@ const unlockChat = (state) => {
 
 };
 
+const setToken = (state, action) => {
+    let newState = Object.assign({}, state);
+    newState.token = action.data;
+    return newState;
+};
+
+const clearToken = (state, action) => {
+    let newState = Object.assign({}, state);
+    newState.token = null;
+    return newState;
+};
+
+const appReducerObj = {};
+
+appReducerObj[actionTypes.TOGGLE_SIDE_MENU] = toggleSideMenu;
+appReducerObj[actionTypes.TOGGLE_AUTO_MAP] = toggleAutoMap;
+appReducerObj[actionTypes.UPDATE_SENSOR_STATES] = updateSensorStates;
+appReducerObj[actionTypes.UPDATE_CAMERA_URL] = updateCamUrl;
+appReducerObj[actionTypes.UPDATE_MAP_URL] = updateMapUrl;
+appReducerObj[actionTypes.UPDATE_CONVERSATION] = updateConversation;
+appReducerObj[actionTypes.SHOW_ERROR_MODAL] = showErrorModal;
+appReducerObj[actionTypes.LOCK_CHAT] = lockChat;
+appReducerObj[actionTypes.UNLOCK_CHAT] = unlockChat;
+appReducerObj[actionTypes.SET_LOGIN_TOKEN] = setToken;
+appReducerObj[actionTypes.CLEAR_LOGIN_TOKEN] = clearToken;
+
+
 const reducer = (state = initialState, action) => {
 
-    switch(action.type) {
-        case actionTypes.TOGGLE_SIDE_MENU:
-            return toggleSideMenu(state);
-        case actionTypes.TOGGLE_AUTO_MAP:
-            return toggleAutoMap(state);
-        case actionTypes.UPDATE_SENSOR_STATES:
-            return updateSensorStates(state, action);
-        case actionTypes.UPDATE_CAMERA_URL:
-            return updateCamUrl(state, action);
-        case actionTypes.UPDATE_MAP_URL:
-            return updateMapUrl(state, action);
-        case actionTypes.UPDATE_CONVERSATION:
-            return updateConversation(state, action);
-        case actionTypes.SHOW_ERROR_MODAL:
-            return showErrorModal(state, action);
-        case actionTypes.LOCK_CHAT:
-            return lockChat(state);
-        case actionTypes.UNLOCK_CHAT:
-            return unlockChat(state);
-        default:
-            return state;
+    if (appReducerObj.hasOwnProperty(action.type)) {
+        return appReducerObj[action.type](state, action);
     }
 
+
+    return state;
 };
 
 export default reducer;

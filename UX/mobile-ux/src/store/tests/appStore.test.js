@@ -132,5 +132,31 @@ describe('appStore Reducer', () => {
 
     });
 
+    it('sets the login token when SET_LOGIN_TOKEN is triggered', () => {
+         let state = reducer(undefined, {
+             type: null
+         });
+
+         state = reducer(state, {
+             type: actionTypes.SET_LOGIN_TOKEN,
+             data: "ABCD"
+         });
+
+         expect(state.token).toEqual("ABCD");
+    });
+
+    it('clears the login token when CLEAR_LOGIN_TOKEN is tirggered', () => {
+        let state = reducer(undefined, {
+            type: null
+        });
+
+        state.token = "ABCD";
+
+        state = reducer(state, {
+            type: actionTypes.CLEAR_LOGIN_TOKEN
+        });
+
+        expect(state.token).toBe(null);
+    });
 
 });

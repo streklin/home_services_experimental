@@ -5,6 +5,7 @@ import RobotControls from '../RobotControls/RobotControls';
 import ChatBot from '../ChatBot/ChatBot';
 import RobotStatus from '../RobotStatus/RobotStatus';
 import Telepresence from '../Telepresence/Telepresence';
+import Login from '../Login/Login';
 import AWS from 'aws-sdk';
 import './App.css';
 
@@ -49,6 +50,12 @@ class App extends Component {
                             path="/telepresence"
                             exact
                             component={Telepresence}
+                        />
+
+                        <Route
+                            path="/login"
+                            exact
+                            component={Login}
                         />
 
 

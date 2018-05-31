@@ -34,8 +34,16 @@ export function updateMapImg() {
 export function toggleAutoMap() {
 
     return (dispatch, getState) => {
+
+        let state = getState();
+        let token = state.appStore.token;
+
         axios
-            .get(SERVER_URL + "robot/state/toggleAutoMap")
+            .get(SERVER_URL + "robot/state/toggleAutoMap", {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            })
             .then(() => {
                 dispatch({
                    type: actionTypes.TOGGLE_AUTO_MAP
@@ -155,4 +163,29 @@ export function callRight() {
 
 export function callStop() {
     axios.get(SERVER_URL + "robot/drive/stop");
+}
+
+export function login(username, password) {
+
+    return (dispatch) => {
+        axios.post(SERVER_URL + "robot/login", {
+            username: username,
+            password: password
+        })
+            .then( (response) => {
+                console.log(response);
+
+                if (response.data.status === "OK") {
+                    dispatch({
+                        type: actionTypes.SET_LOGIN_TOKEN,
+                        data: response.data.token
+                    });
+                } else {
+                    dispatch({
+                        type: actionTypes.SHOW_ERROR_MODAL
+                    });
+                }
+
+            } );
+    };
 }

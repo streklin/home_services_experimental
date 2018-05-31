@@ -8,19 +8,24 @@ const std_msgs = rosnodejs.require('std_msgs').msg;
 const robotStateManager = require('./robotState');
 const bodyParser = require('body-parser');
 const awsLex = require('./lex');
+const authentication = require('./authentication');
 
 const app = express();
 let robotState = null;
 let lexHandler = null;
+let authCtrl = authentication.authentication()();
 
 // update this later
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     next();
 });
 
 app.use(bodyParser.json());
+app.use(authCtrl.authorize);
+
 
 
 // send forward twist command
@@ -80,6 +85,26 @@ app.post('/robot/chat/lex', (req, res) => {
         .catch((err) => {
             res.send("There was a problem processing your request.");
         });
+});
+
+app.post('/robot/login', (req, res) => {
+    let username = req.body.username;
+    let password = req.body.password;
+
+    let token = authCtrl.login(username, password);
+
+    if (token === null) {
+        res.send({
+            status: "ERROR",
+            token: null
+        });
+    } else {
+        res.send({
+            status: "OK",
+            token: token
+        });
+    }
+
 });
 
 rosnodejs.initNode('/middleware', { onTheFly: true})
