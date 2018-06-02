@@ -7,25 +7,25 @@ const remoteControl = (props) => {
         <div className="remote-controls">
 
             <div className="controls-container">
-                <div onClick={actionCreators.callForward}  className="remote-up remote-button">
+                <div onClick={() => actionCreators.callForward(props.token)}  className="remote-up remote-button">
                     <i className="fas fa-caret-up"></i>
                 </div>
 
                 <div className="remote-middle remote-button">
-                    <div onClick={actionCreators.callLeft} className="remote-left remote-button">
+                    <div onClick={() => actionCreators.callLeft(props.token)} className="remote-left remote-button">
                         <i className="fas fa-caret-left"></i>
                     </div>
 
-                    <div onClick={actionCreators.callStop} className="remote-stop remote-button">
+                    <div onClick={() => actionCreators.callStop(props.token)} className="remote-stop remote-button">
                         <i className="fas fa-circle"></i>
                     </div>
 
-                    <div onClick={actionCreators.callRight} className="remote-right remote-button">
+                    <div onClick={() => actionCreators.callRight(props.token)} className="remote-right remote-button">
                         <i className="fas fa-caret-right"></i>
                     </div>
                 </div>
 
-                <div onClick={actionCreators.callBackward} className="remote-down remote-button">
+                <div onClick={() => actionCreators.callBackward(props.token)} className="remote-down remote-button">
                     <i className="fas fa-caret-down"></i>
                 </div>
 

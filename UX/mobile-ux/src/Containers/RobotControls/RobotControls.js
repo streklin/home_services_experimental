@@ -22,7 +22,9 @@ export class RobotControls extends Component {
                     camUrl={this.props.camUrl}
                 />
                 <div className="Bottom">
-                    <RemoteControls/>
+                    <RemoteControls
+                        token={this.props.token}
+                    />
                     <SLAM
                         mapImage={this.props.mapUrl}
                     />
@@ -41,7 +43,8 @@ const mapStateToProps = (state) => {
     return {
         isAutoMapActive: state.appStore.robotState.isAutoMapActive,
         mapUrl: state.appStore.mapUrl,
-        camUrl: state.appStore.camUrl
+        camUrl: state.appStore.camUrl,
+        token: state.appStore.token
     }
 };
 

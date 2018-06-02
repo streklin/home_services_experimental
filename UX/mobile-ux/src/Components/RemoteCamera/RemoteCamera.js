@@ -4,7 +4,7 @@ import './RemoteCamera.css';
 const remoteCamera = (props) => {
     return (
         <div className="RemoteCamera">
-            <img src={props.camUrl} alt="Robot Camera" />
+            <img src={props.imageData} alt="Robot Camera" />
         </div>
     )
 };

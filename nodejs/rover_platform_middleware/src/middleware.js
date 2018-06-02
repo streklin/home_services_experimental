@@ -9,6 +9,7 @@ const robotStateManager = require('./robotState');
 const bodyParser = require('body-parser');
 const awsLex = require('./lex');
 const authentication = require('./authentication');
+const streamingApp = require('./data-streaming');
 
 const app = express();
 let robotState = null;
@@ -111,6 +112,9 @@ rosnodejs.initNode('/middleware', { onTheFly: true})
     .then((rosNode) => {
         robotState = robotStateManager.robotStateManager()(rosNode);
         lexHandler = awsLex.lexResponder()(rosNode, robotState);
+
+        let streamingAppCtrl = streamingApp.dataStreamer()(rosNode);
+
         app.listen(8080, () => console.log('Example app listening on port 8080!'));
     });
 

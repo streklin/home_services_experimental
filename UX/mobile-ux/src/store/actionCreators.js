@@ -145,24 +145,44 @@ export function sendChatRequest(query) {
 }
 
 // these functions do not update state
-export function callForward() {
-    axios.get(SERVER_URL + "robot/drive/forward");
+export function callForward(token) {
+    axios.get(SERVER_URL + "robot/drive/forward", {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    });
 }
 
-export function callBackward() {
-    axios.get(SERVER_URL + "robot/drive/backward");
+export function callBackward(token) {
+    axios.get(SERVER_URL + "robot/drive/backward", {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    });
 }
 
-export function callLeft() {
-    axios.get(SERVER_URL + "robot/drive/left");
+export function callLeft(token) {
+    axios.get(SERVER_URL + "robot/drive/left", {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    });
 }
 
-export function callRight() {
-    axios.get(SERVER_URL + "robot/drive/right");
+export function callRight(token) {
+    axios.get(SERVER_URL + "robot/drive/right", {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    });
 }
 
-export function callStop() {
-    axios.get(SERVER_URL + "robot/drive/stop");
+export function callStop(token) {
+    axios.get(SERVER_URL + "robot/drive/stop", {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    });
 }
 
 export function login(username, password) {
