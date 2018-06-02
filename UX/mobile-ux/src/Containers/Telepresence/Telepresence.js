@@ -77,8 +77,6 @@ export class Telepresence extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        mapUrl: state.appStore.mapUrl,
-        camUrl: state.appStore.camUrl,
         token: state.appStore.token
     }
 };

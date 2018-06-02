@@ -6,27 +6,47 @@ import AutoMap from '../../Components/AutoMap/AutoMap';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../store/actionCreators';
 import './RobotControls.css';
+import openSocket from "socket.io-client";
+import createDataUri from "create-data-uri";
 
 
 export class RobotControls extends Component {
 
+    state = {
+        imageData: null,
+        mapData: null
+    };
+
+
     componentDidMount() {
-        this.cameraInterval = setInterval(() => this.props.updateCameraUrl(), 1000);
-        this.mapInterval = setInterval(() => this.props.updateMapUrl(), 1000);
+
+        const socket = openSocket('http://localhost:8000');
+        socket.on('robot-camera', (data) => {
+            let newState = Object.assign({}, this.state);
+            newState.imageData = createDataUri("image/jpeg", data);
+            this.setState(newState);
+        });
+
+        socket.on('robot-map', (data) => {
+            let newState = Object.assign({}, this.state);
+            newState.mapData = createDataUri("image/jpeg", data);
+            this.setState(newState);
+        });
+
     }
 
     render() {
         return (
             <div className="RobotControls">
                 <RemoteCamera
-                    camUrl={this.props.camUrl}
+                    imageData={this.state.imageData}
                 />
                 <div className="Bottom">
                     <RemoteControls
                         token={this.props.token}
                     />
                     <SLAM
-                        mapImage={this.props.mapUrl}
+                        imageData={this.state.mapData}
                     />
                     <AutoMap
                         toggleAutoMap={this.props.toggleAutoMap}
@@ -50,8 +70,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateCameraUrl: () => dispatch(actionCreators.updateCameraImg()),
-        updateMapUrl: () => dispatch(actionCreators.updateMapImg()),
         toggleAutoMap: () => dispatch(actionCreators.toggleAutoMap())
     }
 };

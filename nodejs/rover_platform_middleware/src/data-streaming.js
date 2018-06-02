@@ -4,7 +4,6 @@
 const server = require('http').createServer();
 const io = require('socket.io')(server);
 const ab2str = require('arraybuffer-to-string');
-const jpeg = require('jpeg-js');
 
 const port = 8000;
 
@@ -18,6 +17,10 @@ exports.dataStreamer = function() {
         io.listen(port);
         console.log('streaming on port ', port);
 
+        // get the video and audio stream from the client and pass it on
+
+
+
         // subscribe to the image topics
         rosNode.subscribe("/camera/image_raw/compressed", "sensor_msgs/CompressedImage", (msg) => {
             let base64Encoded = ab2str(msg.data, 'base64');
@@ -25,16 +28,6 @@ exports.dataStreamer = function() {
         });
 
         rosNode.subscribe("/map/image", "sensor_msgs/Image", (msg) => {
-/*            let bufferedData = Buffer.from(msg.data);
-
-            let rawImageData = {
-                data: bufferedData,
-                width: msg.width,
-                height: msg.height
-            };
-
-            let jpegImageData = jpeg.encode(rawImageData);
-            let base64Encoded = ab2str(jpegImageData.data, 'base64');*/
             let base64Encoded = ab2str(msg.data, 'base64');
             io.sockets.emit('robot-map', base64Encoded);
         });
