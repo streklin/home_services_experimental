@@ -9,7 +9,6 @@ import './RobotControls.css';
 import openSocket from "socket.io-client";
 import createDataUri from "create-data-uri";
 
-
 export class RobotControls extends Component {
 
     state = {
@@ -32,6 +31,7 @@ export class RobotControls extends Component {
             newState.mapData = createDataUri("image/jpeg", data);
             this.setState(newState);
         });
+
 
     }
 

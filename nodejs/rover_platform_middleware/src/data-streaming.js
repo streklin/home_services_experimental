@@ -18,8 +18,18 @@ exports.dataStreamer = function() {
         console.log('streaming on port ', port);
 
         // get the video and audio stream from the client and pass it on
+        io.on('connection', (client) => {
 
+            client.on('webcamImage', (data) => {
+                io.sockets.emit('telepresenceVideoFrame', data);
+            });
 
+            client.on('pcmAudioChunk', (data) => {
+                // play the audio chunk
+                io.sockets.emit('pcmBroadcast', data);
+
+            });
+        });
 
         // subscribe to the image topics
         rosNode.subscribe("/camera/image_raw/compressed", "sensor_msgs/CompressedImage", (msg) => {

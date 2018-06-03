@@ -8,6 +8,8 @@ import './Telepresence.css';
 import openSocket from 'socket.io-client';
 import createDataUri from 'create-data-uri';
 
+let mediaRecorder = null;
+
 export class Telepresence extends Component {
 
     state = {
@@ -24,20 +26,61 @@ export class Telepresence extends Component {
         return imageSrc;
     };
 
+    startMicrophone = () => {
+        let constraints = {
+            audio: true,
+            video: false
+        };
+
+        navigator
+            .mediaDevices
+            .getUserMedia(constraints)
+            .then((stream) => {
+                console.log("GOT STREAM");
+                let audioContext = window.AudioContext;
+                let context = new audioContext();
+
+                let audioInput = context.createMediaStreamSource(stream);
+                let bufferSize = 2048;
+
+                let recorder = context.createScriptProcessor(bufferSize, 1, 1);
+
+                recorder.onaudioprocess = (event) => {
+                    let left = event.inputBuffer.getChannelData(0);
+                    this.socket.emit('pcmAudioChunk', left);
+                };
+
+                audioInput.connect(recorder);
+
+                recorder.connect(context.destination);
+            })
+            .catch((err) => {
+                console.log("ERROR: ", err);
+            });
+    };
+
     componentDidMount() {
 
-        const socket = openSocket('http://localhost:8000');
-        socket.on('robot-camera', (data) => {
+        this.socket = openSocket('http://localhost:8000');
+        this.socket.on('robot-camera', (data) => {
             let newState = Object.assign({}, this.state);
             newState.imageData = createDataUri("image/jpeg", data);
             this.setState(newState);
         });
 
-        socket.on('robot-map', (data) => {
+        this.socket.on('robot-map', (data) => {
             let newState = Object.assign({}, this.state);
             newState.mapData = createDataUri("image/jpeg", data);
             this.setState(newState);
         });
+
+        this.inverval = setInterval(() => {
+            let imageData = this.capture();
+            this.socket.emit('webcamImage', imageData);
+        }, 100);
+
+        this.startMicrophone();
+
 
     }
 
