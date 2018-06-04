@@ -36,7 +36,7 @@ class App extends Component {
             this.setState(newState);
         });
 
-        this.socket.on('pcmBroadcast', (data) => {
+        this.socket.on('serverPCMBroadcast', (data) => {
             let dataArray = Object.keys(data).map(i => data[i]);
             let floatData = Float32Array.from(dataArray);
             player.feed(floatData);

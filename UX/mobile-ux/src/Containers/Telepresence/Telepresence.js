@@ -7,8 +7,7 @@ import SLAM from '../../Components/SLAM/SLAM';
 import './Telepresence.css';
 import openSocket from 'socket.io-client';
 import createDataUri from 'create-data-uri';
-
-let mediaRecorder = null;
+import MicStreamer from '../../Components/MicStreamer/MicStreamer';
 
 export class Telepresence extends Component {
 
@@ -16,6 +15,16 @@ export class Telepresence extends Component {
         imageData: null,
         mapData: null
     };
+
+    constructor() {
+        super();
+        this.socket = openSocket('http://localhost:8000');
+
+        this.inverval = setInterval(() => {
+            let imageData = this.capture();
+            this.socket.emit('webcamImage', imageData);
+        }, 100);
+    }
 
     setRef = (webcam) => {
         this.webcam = webcam;
@@ -26,42 +35,9 @@ export class Telepresence extends Component {
         return imageSrc;
     };
 
-    startMicrophone = () => {
-        let constraints = {
-            audio: true,
-            video: false
-        };
-
-        navigator
-            .mediaDevices
-            .getUserMedia(constraints)
-            .then((stream) => {
-                console.log("GOT STREAM");
-                let audioContext = window.AudioContext;
-                let context = new audioContext();
-
-                let audioInput = context.createMediaStreamSource(stream);
-                let bufferSize = 2048;
-
-                let recorder = context.createScriptProcessor(bufferSize, 1, 1);
-
-                recorder.onaudioprocess = (event) => {
-                    let left = event.inputBuffer.getChannelData(0);
-                    this.socket.emit('pcmAudioChunk', left);
-                };
-
-                audioInput.connect(recorder);
-
-                recorder.connect(context.destination);
-            })
-            .catch((err) => {
-                console.log("ERROR: ", err);
-            });
-    };
-
     componentDidMount() {
 
-        this.socket = openSocket('http://localhost:8000');
+
         this.socket.on('robot-camera', (data) => {
             let newState = Object.assign({}, this.state);
             newState.imageData = createDataUri("image/jpeg", data);
@@ -74,14 +50,10 @@ export class Telepresence extends Component {
             this.setState(newState);
         });
 
-        this.inverval = setInterval(() => {
-            let imageData = this.capture();
-            this.socket.emit('webcamImage', imageData);
-        }, 100);
+    }
 
-        this.startMicrophone();
-
-
+    componentWillUnmount() {
+        this.interval();
     }
 
     render() {
@@ -111,6 +83,10 @@ export class Telepresence extends Component {
                         imageData={this.state.mapData}
                     />
                 </div>
+                <MicStreamer
+                    socket={this.socket}
+                    broadcastTopic="clientPCMAudioChunk"
+                />
 
             </div>
         );

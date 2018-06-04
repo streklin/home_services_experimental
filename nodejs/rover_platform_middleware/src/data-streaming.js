@@ -24,10 +24,13 @@ exports.dataStreamer = function() {
                 io.sockets.emit('telepresenceVideoFrame', data);
             });
 
-            client.on('pcmAudioChunk', (data) => {
+            client.on('clientPCMAudioChunk', (data) => {
                 // play the audio chunk
-                io.sockets.emit('pcmBroadcast', data);
+                io.sockets.emit('serverPCMBroadcast', data);
+            });
 
+            client.on('serverPCMAudioChunk', (data) => {
+                io.sockets.emit('clientPCMBroadcast', data);
             });
         });
 

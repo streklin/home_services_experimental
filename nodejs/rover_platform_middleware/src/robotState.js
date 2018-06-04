@@ -67,13 +67,13 @@ exports.robotStateManager = function() {
     };
 
     stateMachine.prototype.updateBatteryCharge = function(msg) {
-        robotState = robotState.Set('batteryPower', msg.data * 100);
+        robotState = robotState.set('batteryPower', msg.data * 100);
     };
 
     stateMachine.prototype.toggleAutoMap = function() {
 
         let isAutoMapActive = robotState.get('isAutoMapActive');
-        robotState.Set('isAutoMapActive', !isAutoMapActive);
+        robotState.set('isAutoMapActive', !isAutoMapActive);
 
         if (!isAutoMapActive) {
             this.activateAutoMapBehavior();
