@@ -31,12 +31,6 @@ const toggleSideMenu = (state) => {
     return newState;
 };
 
-const toggleAutoMap = (state) => {
-    let newState = Object.assign({}, state);
-    newState.robotState.isAutoMapActive = !newState.robotState.isAutoMapActive;
-    return newState;
-};
-
 const updateSensorStates = (state, action) => {
     let data = action.data;
 
@@ -119,10 +113,21 @@ const clearToken = (state, action) => {
     return newState;
 };
 
+const enableAutoMap = (state, action) => {
+    let newState = Object.assign({}, state);
+    newState.robotState.isAutoMapActive = true;
+    return newState;
+};
+
+const disableAutoMap = (state, action) => {
+    let newState = Object.assign({}, state);
+    newState.robotState.isAutoMapActive = false;
+    return newState;
+};
+
 const appReducerObj = {};
 
 appReducerObj[actionTypes.TOGGLE_SIDE_MENU] = toggleSideMenu;
-appReducerObj[actionTypes.TOGGLE_AUTO_MAP] = toggleAutoMap;
 appReducerObj[actionTypes.UPDATE_SENSOR_STATES] = updateSensorStates;
 appReducerObj[actionTypes.UPDATE_CAMERA_URL] = updateCamUrl;
 appReducerObj[actionTypes.UPDATE_MAP_URL] = updateMapUrl;
@@ -132,6 +137,8 @@ appReducerObj[actionTypes.LOCK_CHAT] = lockChat;
 appReducerObj[actionTypes.UNLOCK_CHAT] = unlockChat;
 appReducerObj[actionTypes.SET_LOGIN_TOKEN] = setToken;
 appReducerObj[actionTypes.CLEAR_LOGIN_TOKEN] = clearToken;
+appReducerObj[actionTypes.ENABLE_AUTOMAP] = enableAutoMap;
+appReducerObj[actionTypes.DISABLE_AUTOMAP] = disableAutoMap;
 
 
 const reducer = (state = initialState, action) => {

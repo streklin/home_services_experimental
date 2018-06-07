@@ -1,5 +1,5 @@
 import React from 'react';
-import * as actionCreators from '../../store/actionCreators';
+import * as actionCreators from '../../Services/store/actionCreators';
 import './RemoteControl.css';
 
 const remoteControl = (props) => {

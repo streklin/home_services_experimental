@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as actionCreators from '../../store/actionCreators';
+import * as actionCreators from '../../Services/store/actionCreators';
 import { connect } from 'react-redux';
 import './ChatBot.css';
 

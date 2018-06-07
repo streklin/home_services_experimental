@@ -1,0 +1,43 @@
+.Login {
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 20%;
+    padding: 20px;
+    border: 1px solid #aaa;
+    box-shadow: 1px 1px #a1a1a1;
+}
+
+.Login img {
+    height: 100px;
+    display: inline-block;
+}
+
+.Login .loginContainer {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 10px;
+    margin-left: 40px;
+}
+
+.Login .loginContainer .loginInput {
+    margin-bottom: 20px;
+}
+
+.Login .loginContainer .loginInput label {
+    width: 95px;
+    display: inline-block;
+}
+
+.Login .loginContainer .loginInput input {
+    padding: 5px;
+}
+
+.Login .loginContainer button {
+    float: right;
+    background-color: orange;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}

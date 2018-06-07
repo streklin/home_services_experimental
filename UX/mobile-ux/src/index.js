@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './Containers/App/App';
+import App from './Views/App/App';
 import registerServiceWorker from './registerServiceWorker';
 import { createStore, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import appReducer from './store/reducers/appStore';
+import appReducer from './Services/store/reducers/appStore';
 
 const rootReducer = combineReducers({
    appStore: appReducer

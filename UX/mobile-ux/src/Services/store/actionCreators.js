@@ -5,63 +5,68 @@ import * as actionTypes from './actions';
 
 const SERVER_URL = 'http://192.168.0.13:8080/';
 
-export function updateCameraImg() {
-
+export function enableAutoMap() {
     return (dispatch, getState) => {
-
-        let newCamUrl = SERVER_URL + "robot/images/camera?t=" + new Date().getTime();
-        dispatch({
-            type: actionTypes.UPDATE_CAMERA_URL,
-            data: newCamUrl
-        });
-
-    };
-
-}
-
-export function updateMapImg() {
-
-    return (dispatch, getState) => {
-        let newMapUrl = SERVER_URL + "robot/images/map?t=" + new Date().getTime();
-        dispatch({
-            type: actionTypes.UPDATE_MAP_URL,
-            data: newMapUrl
-        });
-    };
-
-}
-
-export function toggleAutoMap() {
-
-    return (dispatch, getState) => {
-
         let state = getState();
         let token = state.appStore.token;
 
-        axios
-            .get(SERVER_URL + "robot/state/toggleAutoMap", {
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                }
-            })
+        axios.get(SERVER_URL + 'robot/automap/activate', {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
             .then(() => {
                 dispatch({
-                   type: actionTypes.TOGGLE_AUTO_MAP
+                    type: actionTypes.ENABLE_AUTOMAP
+                });
+            })
+            .catch( (err) => {
+                dispatch({
+                    type: actionTypes.SHOW_ERROR_MODAL
                 });
             });
     };
-
 }
 
-function sendChatRequestToRobot(dispatch, data) {
+export function disableAutoMap() {
+    return (dispatch, getState) => {
+        let state = getState();
+        let token = state.appStore.token;
+
+        axios.get(SERVER_URL + 'robot/automap/deactivate', {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
+            .then(() => {
+                dispatch({
+                    type: actionTypes.DISABLE_AUTOMAP
+                });
+            })
+            .catch( (err) => {
+                dispatch({
+                    type: actionTypes.SHOW_ERROR_MODAL
+                });
+            });
+    }
+}
+
+
+
+function sendChatRequestToRobot(dispatch, data, token) {
     if (data.dialogState !== 'Fulfilled') return;
+
 
     let requestBody = {
         intent: data.intentName,
         variables: data.slots
     };
 
-    axios.post(SERVER_URL + "robot/chat/lex", requestBody)
+    axios.post(SERVER_URL + "robot/chat/lex", requestBody, {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
         .then((response) => {
 
             dispatch({
@@ -87,6 +92,9 @@ function sendChatRequestToRobot(dispatch, data) {
 
 export function sendChatRequest(query) {
     return (dispatch, getState) => {
+
+        let state = getState();
+        let token = state.appStore.token;
 
         dispatch({
             type: actionTypes.LOCK_CHAT
@@ -137,7 +145,7 @@ export function sendChatRequest(query) {
                     data: newResponse
                 });
 
-                sendChatRequestToRobot(dispatch, data);
+                sendChatRequestToRobot(dispatch, data, token);
 
             }
         });

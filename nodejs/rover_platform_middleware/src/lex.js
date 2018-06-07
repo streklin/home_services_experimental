@@ -96,8 +96,6 @@ exports.lexResponder = function() {
 
     lexResponder.prototype.processIntent = function(data) {
 
-        console.log(data)
-
         if (data.intent === undefined || data.intent === null) throw "";
         if (!lexIntents.hasOwnProperty(data.intent)) throw "processIntent - unknown intent";
 

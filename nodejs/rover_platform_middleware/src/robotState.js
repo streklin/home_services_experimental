@@ -70,17 +70,6 @@ exports.robotStateManager = function() {
         robotState = robotState.set('batteryPower', msg.data * 100);
     };
 
-    stateMachine.prototype.toggleAutoMap = function() {
-
-        let isAutoMapActive = robotState.get('isAutoMapActive');
-        robotState.set('isAutoMapActive', !isAutoMapActive);
-
-        if (!isAutoMapActive) {
-            this.activateAutoMapBehavior();
-        } else {
-            this.disableAutoMapBehavior();
-        }
-    };
 
     stateMachine.prototype.driveRobot = function(command) {
         const msg = new std_msgs.String();

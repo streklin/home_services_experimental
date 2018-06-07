@@ -4,12 +4,20 @@ import './AutoMap.css';
 
 const autoMap = (props) => {
 
+    let autoMapClick = () => {
+        if (props.isAutoMapActive) {
+            props.deactivate();
+        } else {
+            props.activate();
+        }
+    };
+
     let autoMapClasses = ['AutoMap'];
 
     if (props.isAutoMapActive) autoMapClasses.push('active');
 
     return (
-        <div onClick={props.toggleAutoMap} className={autoMapClasses.join(" ")}>
+        <div onClick={autoMapClick} className={autoMapClasses.join(" ")}>
             <span>Auto Map</span>
         </div>
     );

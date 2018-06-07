@@ -7,6 +7,7 @@ import RobotStatus from '../RobotStatus/RobotStatus';
 import Telepresence from '../Telepresence/Telepresence';
 import Login from '../Login/Login';
 import AWS from 'aws-sdk';
+import LoginRedirect from '../../Services/LoginRedirect/LoginRedirect';
 import './App.css';
 
 class App extends Component {
@@ -31,25 +32,25 @@ class App extends Component {
                         <Route
                             path="/"
                             exact
-                            component={RobotControls}
+                            component={LoginRedirect(RobotControls)}
                         />
 
                         <Route
                             path="/chat"
                             exact
-                            component={ChatBot}
+                            component={LoginRedirect(ChatBot)}
                         />
 
                         <Route
                             path="/status"
                             exact
-                            component={RobotStatus}
+                            component={LoginRedirect(RobotStatus)}
                         />
 
                         <Route
                             path="/telepresence"
                             exact
-                            component={Telepresence}
+                            component={LoginRedirect(Telepresence)}
                         />
 
                         <Route

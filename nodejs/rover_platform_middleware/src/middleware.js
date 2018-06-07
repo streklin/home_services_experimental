@@ -28,7 +28,6 @@ app.use(bodyParser.json());
 app.use(authCtrl.authorize);
 
 
-
 // send forward twist command
 app.get('/robot/drive/forward', (req, res) => {
     robotState.driveRobot('F');
@@ -59,16 +58,15 @@ app.get('/robot/drive/stop', (req, res) => {
     res.send("OK");
 });
 
-app.get('/robot/images/map', (req, res) => {
-    res.sendFile('/home/gene/catkin_ws/src/rover_platform/mapImage.png');
+// activate auto map
+app.get('/robot/automap/activate', (req, res) => {
+    robotState.activateAutoMapBehavior();
+    res.send("OK");
 });
 
-app.get('/robot/images/camera', (req, res) => {
-    res.sendFile('/home/gene/catkin_ws/src/rover_platform/camImage.png');
-});
-
-app.get('/robot/state/toggleAutoMap', (req, res) => {
-    robotState.toggleAutoMap();
+// deactivate auto map
+app.get('/robot/automap/deactivate', (req, res) => {
+    robotState.disableAutoMapBehavior();
     res.send("OK");
 });
 

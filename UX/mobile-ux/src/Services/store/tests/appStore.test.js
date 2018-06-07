@@ -18,20 +18,6 @@ describe('appStore Reducer', () => {
         expect(state.isMenuOpen).toBe(false);
     });
 
-    it('toggles the automap flag when TOGGLE_AUTO_MAP action is triggered', () => {
-        let state = reducer(undefined, {
-            type: actionTypes.TOGGLE_AUTO_MAP
-        });
-
-        expect(state.robotState.isAutoMapActive).toBe(true);
-
-        state = reducer(state, {
-            type: actionTypes.TOGGLE_AUTO_MAP
-        });
-
-        expect(state.robotState.isAutoMapActive).toBe(false);
-    });
-
     it('updates the sensor states when UPDATE_SENSOR_STATES is triggered', () => {
         let state = reducer(undefined, {
             type: actionTypes.UPDATE_SENSOR_STATES,
@@ -157,6 +143,37 @@ describe('appStore Reducer', () => {
         });
 
         expect(state.token).toBe(null);
+    });
+
+    it('enables automapping when ENABLE_AUTOMAP is triggered', () => {
+        let state = reducer(undefined, {
+            type: null
+        });
+
+        state.robotState.isAutoMapActive = false;
+
+        state = reducer(state, {
+            type: actionTypes.ENABLE_AUTOMAP
+        });
+
+        expect(state.robotState.isAutoMapActive).toBe(true);
+
+    });
+
+    it('disables automapping when DISABLE_AUTOMAP is triggered', () => {
+
+        let state = reducer(undefined, {
+            type: null
+        });
+
+        state.robotState.isAutoMapActive = true;
+
+        state = reducer(state, {
+            type: actionTypes.DISABLE_AUTOMAP
+        });
+
+        expect(state.robotState.isAutoMapActive).toBe(false);
+
     });
 
 });

@@ -4,7 +4,7 @@ import RemoteControls from '../../Components/RemoteControl/RemoteControl';
 import SLAM from '../../Components/SLAM/SLAM';
 import AutoMap from '../../Components/AutoMap/AutoMap';
 import { connect } from 'react-redux';
-import * as actionCreators from '../../store/actionCreators';
+import * as actionCreators from '../../Services/store/actionCreators';
 import './RobotControls.css';
 import openSocket from "socket.io-client";
 import createDataUri from "create-data-uri";
@@ -49,7 +49,8 @@ export class RobotControls extends Component {
                         imageData={this.state.mapData}
                     />
                     <AutoMap
-                        toggleAutoMap={this.props.toggleAutoMap}
+                        activate={this.props.enableAutoMap}
+                        deactivate={this.props.disableAutoMap}
                         isAutoMapActive={this.props.isAutoMapActive}
                     />
                 </div>
@@ -70,7 +71,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        toggleAutoMap: () => dispatch(actionCreators.toggleAutoMap())
+        enableAutoMap: () => dispatch(actionCreators.enableAutoMap()),
+        disableAutoMap: () => dispatch(actionCreators.disableAutoMap())
     }
 };
 
