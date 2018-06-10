@@ -160,7 +160,8 @@ add_executable(projMapToImage src/nodes/projMapToImage.cpp)
 add_executable(remoteControl src/nodes/remoteControl.cpp)
 add_executable(cameraCapture src/nodes/cameraCapture.cpp)
 add_executable(blackboardServer src/Services/BlackboardServer.cpp)
-add_executable(navigation_node src/nodes/navigation.cpp)
+add_executable(frontierExploration src/nodes/frontierExploration.cpp)
+add_executable(navigator src/nodes/navigator.cpp)
 
 target_link_libraries(
   projMapToImage
@@ -169,7 +170,13 @@ target_link_libraries(
 )
 
 target_link_libraries(
-  navigation_node
+  frontierExploration
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBS}
+)
+
+target_link_libraries(
+  navigator
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
 )
@@ -204,7 +211,7 @@ add_dependencies(blackboardServer rover_platform_gencpp)
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
-#   ${catkin_LIBRARIES}
+#   ${catkinavigation_noden_LIBRARIES}
 # )
 
 #############

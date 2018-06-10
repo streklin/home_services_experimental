@@ -15,6 +15,7 @@ float g_robotX = 0.0f;
 float g_robotY = 0.0f;
 
 string g_imageFile = "";
+image_transport::Publisher g_image_publisher;
 
 Point getRobotOccMapCell(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
   float resolution = msg->info.resolution;
@@ -78,9 +79,17 @@ void convertMapToImage(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
   Mat flippedImg;
   flip(displayImg, flippedImg, 0);
 
-  namedWindow("OccupancyGrid", CV_WINDOW_NORMAL);
-  imshow("OccupancyGrid", flippedImg);
-  imwrite(g_imageFile, flippedImg);
+  std::vector<uchar> buf;
+  imencode(".jpeg", flippedImg, buf);
+
+  //sensor_msgs::ImagePtr imgMsg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", buf).toImageMsg();
+  sensor_msgs::Image imgMsg;
+  imgMsg.height = height;
+  imgMsg.width = width;
+  imgMsg.data = buf;
+
+  g_image_publisher.publish(imgMsg);
+
   waitKey(1);
 }
 
@@ -89,20 +98,16 @@ int main(int argc, char* argv[]) {
   ros::init(argc, argv, "projMapToImage");
   ros::NodeHandle nh;
   ros::Subscriber sub = nh.subscribe("/rtabmap/proj_map", 1, convertMapToImage);
+
   tf::TransformListener listener;
+
+  image_transport::ImageTransport it(nh);
+  g_image_publisher = it.advertise("map/image", 1);
+
   ros::Rate rate(10);
-
-  if (nh.getParam("lastImageLoc", g_imageFile)) {
-    ROS_INFO("Last Image Location: %s", g_imageFile.c_str());
-  } else {
-    ROS_ERROR("Last Image Location not set");
-  }
-
   ROS_INFO("projMapToImage Started!");
 
   while(ros::ok()) {
-
-
 
     tf::StampedTransform transform;
         try

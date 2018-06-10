@@ -12,6 +12,7 @@ import rospy
 from std_msgs.msg import String
 import boto3
 import uuid
+import os
 
 lex_client = boto3.client('lex-runtime')
 polly_client = boto3.client('polly')
@@ -21,10 +22,14 @@ CHUNK_SIZE = 1024
 FORMAT = pyaudio.paInt16
 RATE = 16000
 MAX_SILENCE = 2
-MAXIMUM = 16384
+MAXIMUM = 200
 
 TOP_DIR = os.path.dirname(os.path.abspath(__file__))
 DETECT_DING = os.path.join(TOP_DIR, "ding.wav")
+
+USERNAME = os.environ["ROS_USERNAME"]
+PASSWORD = os.environ["ROS_PASSWORD_INTERNAL"]
+TOKEN = None
 
 # modified version of the WaveCreator class used for training SnowBoy
 class WaveCreator():
@@ -67,6 +72,7 @@ class WaveCreator():
         # listen to the stream
         is_recording = True
         silent_count = 0
+        length = 0
 
         recording = array('h')
 
@@ -88,6 +94,12 @@ class WaveCreator():
             # append next chunk to the recording
             recording.extend(snd_data)
 
+            # check for a maximum length
+            length = length + 1
+
+            if length > MAXIMUM:
+                is_recording = False
+
         # close the stream and get associated sampling data
         sample_width = p.get_sample_size(FORMAT)
         stream.stop_stream()
@@ -96,7 +108,7 @@ class WaveCreator():
 
 
         # normalize the recording
-        recording = self.normalize(recording)
+        # recording = self.normalize(recording)
 
         rospy.loginfo("Recording Complete")
 
@@ -192,6 +204,10 @@ def hotword_detection_callback(data):
     audio_data = response['audioStream'].read()
     play_sound(audio_data)
 
+    # print the response for debugging purposes
+    print (response)
+
+
     # was the request fullfilled?
     if (response['dialogState'] != 'Fulfilled'):
         return
@@ -202,7 +218,11 @@ def hotword_detection_callback(data):
         "variables": response['slots']
     }
 
-    api_response = requests.post("http://localhost:8080/robot/chat/lex", json=api_request)
+    api_headers = {
+        "Authorization": "Bearer " + TOKEN
+    }
+
+    api_response = requests.post("http://localhost:8080/robot/chat/lex", json=api_request, headers=api_headers)
 
     # do we need to output the robots reponse?
     response_text = api_response.text
@@ -215,7 +235,30 @@ def hotword_detection_callback(data):
  # initialize the wave creator
 WAVE_CREATOR = WaveCreator()
 
+#gets the jwt login token
+def get_login_token():
+    global TOKEN
+
+    login_request = {
+        "username": USERNAME,
+        "password": PASSWORD
+    }
+
+    login_response = requests.post("http://localhost:8080/robot/login", json=login_request)
+
+    json_response = login_response.json()
+
+    if json_response["status"] == "ERROR":
+        print("Unable to login to middleware")
+
+    TOKEN = json_response["token"]
+
+
 def aws_node():
+
+    # login in to the middleware
+    get_login_token()
+
     # initialize the ROS node
     rospy.init_node('aws_voice_lex', anonymous=True)
 

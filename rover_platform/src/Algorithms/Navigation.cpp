@@ -2,6 +2,7 @@
 #define _INCL_NAVIGATION_
 
 #include <stdlib.h>
+#include <time.h>
 #include <opencv2/opencv.hpp>
 #include <cv_bridge/cv_bridge.h>
 #include <ros/ros.h>
@@ -35,6 +36,7 @@ private:
   int robotMapY;
   bool isActive;
   bool isGotoActive;
+  bool isTravelling;
 
   ros::ServiceClient client;
 
@@ -50,6 +52,7 @@ private:
   vector<Point> getBoundaryPoints(const nav_msgs::OccupancyGrid::ConstPtr& msg);
   bool isFrontierPoint(int x, int y, const nav_msgs::OccupancyGrid::ConstPtr& msg);
   Point chooseClosestBoundaryPoint(vector<Point> boundary);
+  Point chooseRandomBoundaryPoint(vector<Point> boundary);
   Vertex* convertToMapFrame(Point p, const nav_msgs::OccupancyGrid::ConstPtr& msg);
   void travelTo(Vertex* v);
 public:
@@ -65,16 +68,22 @@ public:
   void gotoPlace(string label);
   void clearCurrentPath();
   void setEpsilon(float epsilon);
+
+  bool isRobotTravelling();
 };
 
 
 Navigation::Navigation(float epsilon) {
+
+  srand (time(NULL));
+
   this->epsilon = epsilon;
   this->current = NULL;
   this->robotX = 0.0;
   this->robotY = 0.0;
   this->isActive = false;
   this->isGotoActive = true;
+  this->isTravelling = false;
 }
 
 void Navigation::setServiceClient(ros::ServiceClient client) {
@@ -92,6 +101,10 @@ void Navigation::activate() {
 
 void Navigation::deactivate() {
   this->isActive = false;
+}
+
+bool Navigation::isRobotTravelling() {
+  return this->isTravelling;
 }
 
 void Navigation::setGotoState(bool newState) {
@@ -434,6 +447,12 @@ Point Navigation::chooseClosestBoundaryPoint(vector<Point> boundary) {
   return p;
 }
 
+Point Navigation::chooseRandomBoundaryPoint(std::vector<Point> boundary) {
+
+  int randomIndex = rand() % boundary.size();
+  return boundary[randomIndex];
+}
+
 Vertex* Navigation::convertToMapFrame(Point p, const nav_msgs::OccupancyGrid::ConstPtr& msg) {
   float resolution = msg->info.resolution;
   int width = msg->info.width;
@@ -473,6 +492,9 @@ void Navigation::travelTo(Vertex* v) {
   goal.target_pose.pose.orientation.z = 0.0;
   goal.target_pose.pose.orientation.w = 1.0;
 
+  ROS_INFO("GOING TO: %f, %f", v->getX(), v->getY());
+
+
   ROS_INFO("Sending goal");
   ac.cancelAllGoals();
   ac.sendGoal(goal);
@@ -501,9 +523,13 @@ void Navigation::nextStep(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
   ROS_INFO("PATH SIZE: %d", (int)this->path.size());
   if (this->path.size() > 0) {
     ROS_INFO("Follow the path.");
+    this->isTravelling = true;
+
     followPath();
     return;
   }
+
+  this->isTravelling = false;
 
   if (!this->isActive) {
     ROS_INFO("Automated exploration disabled");
@@ -523,7 +549,7 @@ void Navigation::nextStep(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
 
   // choose the closest point on the boundary
   ROS_INFO("Get the closest Boundary Point from the OccupancyGrid");
-  Point closestBoundaryPoint = this->chooseClosestBoundaryPoint(frontier);
+  Point closestBoundaryPoint = this->chooseRandomBoundaryPoint(frontier);
 
   // convert it to the robots frame
   ROS_INFO("Convert boundary point to the Robot's reference frame");
@@ -547,6 +573,8 @@ void Navigation::nextStep(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
 }
 
 void Navigation::gotoPlace(string label) {
+  this->isTravelling = true;
+
   // look up the target vertex Json
   json command = {
     {"Command", "getVertexByLabel"},

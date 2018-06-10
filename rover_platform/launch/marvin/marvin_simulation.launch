@@ -11,7 +11,7 @@
     <arg name="debug" default="false"/>
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-      <arg name="world_name" value="$(find rover_platform)/worlds/test_world.world"/>
+      <arg name="world_name" value="$(find rover_platform)/worlds/cafe.world"/>
       <arg name="paused" value="$(arg paused)"/>
       <arg name="use_sim_time" value="$(arg use_sim_time)"/>
       <arg name="gui" value="$(arg gui)"/>
@@ -32,6 +32,6 @@
 
   <include file="$(find rover_platform)/launch/slam/rtabmap.launch" />
   <include file="$(find rover_platform)/launch/slam/navigation.launch" />
-  <node name="remoteControl" pkg="rover_platform" type="remoteControl"></node>
+
 
 </launch>

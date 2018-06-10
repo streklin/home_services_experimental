@@ -59,15 +59,6 @@ void readCommand(const std_msgs::String::ConstPtr& msg) {
 
 }
 
-void toggleListener(const std_msgs::Bool::ConstPtr& exploreActive) {
-  //g_remoteControlOn = exploreActive->data;
-  if (exploreActive->data) {
-    g_subsumptionNode->activate();
-  } else {
-    g_subsumptionNode->deActivate();
-  }
-
-}
 
 
 
@@ -75,13 +66,14 @@ int main(int argc, char* argv[]) {
   ros::init(argc, argv, "remoteControl");
   ros::NodeHandle nh;
   ros::Subscriber sub = nh.subscribe("/remoteControl", 1, readCommand);
-  ros::Subscriber stateSub = nh.subscribe("/setRemoteControlState", 1, toggleListener);
   ros::Publisher pub = nh.advertise<geometry_msgs::Twist>("cmd_vel", 1000);
   ros::Rate rate(10);
 
   g_subsumptionNode = new SubsumptionNode("navigation", 0);
   g_subsumptionNode->start(nh);
   g_subsumptionNode->activate();
+
+  ROS_INFO("Remote Control ready.");
 
   while(ros::ok()) {
 
@@ -95,7 +87,7 @@ int main(int argc, char* argv[]) {
       msg.linear.x = forwardVelocity;
       msg.angular.z = angularVelocity;
       pub.publish(msg);
-    }
+    } 
 
     ros::spinOnce();
     rate.sleep();
