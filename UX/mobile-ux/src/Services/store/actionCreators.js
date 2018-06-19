@@ -2,8 +2,8 @@ import axios from 'axios';
 import React from 'react';
 import AWS from 'aws-sdk';
 import * as actionTypes from './actions';
+import {SERVER_URL} from "../config";
 
-const SERVER_URL = 'http://192.168.0.13:8080/';
 
 export function enableAutoMap() {
     return (dispatch, getState) => {

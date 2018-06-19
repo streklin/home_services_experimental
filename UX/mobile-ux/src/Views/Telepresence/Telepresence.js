@@ -8,6 +8,7 @@ import './Telepresence.css';
 import openSocket from 'socket.io-client';
 import createDataUri from 'create-data-uri';
 import MicStreamer from '../../Components/MicStreamer/MicStreamer';
+import {BASE_SOCKET} from "../../Services/config";
 
 export class Telepresence extends Component {
 
@@ -18,7 +19,7 @@ export class Telepresence extends Component {
 
     constructor() {
         super();
-        this.socket = openSocket('http://localhost:8000');
+        this.socket = openSocket(BASE_SOCKET);
 
         this.inverval = setInterval(() => {
             let imageData = this.capture();

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import openSocket from 'socket.io-client';
 import PCMPlayer from './pcmPlayer';
 import './App.css';
+import {BASE_SOCKET} from "../../mobile-ux/src/Services/config";
 
 
 let player = null;
@@ -25,7 +26,7 @@ class App extends Component {
         });
 
 
-        this.socket = openSocket('http://192.168.0.13:8000');
+        this.socket = openSocket(BASE_SOCKET);
 
         this.socket.on('telepresenceVideoFrame', (data) => {
             let newState = {
